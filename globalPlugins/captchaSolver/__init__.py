@@ -2,7 +2,7 @@
 
 import os.path
 import sys
-import tempfile
+import io
 import httplib
 import threading
 import time
@@ -46,7 +46,6 @@ class captchaSolverSettingsDialog(gui.SettingsDialog):
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _('Captcha Solver')
-	captchaPath = os.path.join(tempfile.gettempdir(), 'captcha.png')
 	responses = {
 		'ERROR_WRONG_USER_KEY': _('API key is not specified'),
 		'ERROR_KEY_DOES_NOT_EXIST': _('Used a non-existent API key'),
@@ -60,14 +59,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		'ERROR_BAD_DUPLICATES': _('The error appears when 100% recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received'),
 	}
 
-	def __init__(self, *args, **kwargs):
-		super(GlobalPlugin, self).__init__(*args, **kwargs)
+	def __init__(self):
+		super(GlobalPlugin, self).__init__()
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.menu.GetMenuItems()[1].GetSubMenu()
 		self.captchaSolverSettingsItem = self.prefsMenu.Append(wx.ID_ANY, _('Captcha Solver Settings...'))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU , lambda i: gui.mainFrame._popupSettingsDialog(captchaSolverSettingsDialog), self.captchaSolverSettingsItem)
 
-	def sendCaptcha(self):
-		captchaFile = open(self.captchaPath, 'rb').read()
+	def sendCaptcha(self, captcha):
 		body = '''------------bundary------
 Content-Disposition: form-data; name="key"
 
@@ -75,9 +73,9 @@ Content-Disposition: form-data; name="key"
 ------------bundary------
 Content-Disposition: form-data; name="file"; filename="captcha.png"
 
-{captchaFile}
+{captcha}
 ------------bundary--------
-'''.format(key=key, captchaFile=captchaFile)
+'''.format(key=key, captcha=captcha.getvalue())
 
 		headers = {'Content-Type': 'multipart/form-data; boundary=----------bundary------'}
 		server = httplib.HTTPConnection('rucaptcha.com', timeout=10)
@@ -139,11 +137,13 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 		except:
 			ui.message(_('Captcha has no location'))
 			return
-		captcha = wx.EmptyBitmap(width, height)
-		mem = wx.MemoryDC(captcha)
+		bmp = wx.EmptyBitmap(width, height)
+		mem = wx.MemoryDC(bmp)
 		mem.Blit(0, 0, width, height, wx.ScreenDC(), x, y)
-		captcha.SaveFile(self.captchaPath, wx.BITMAP_TYPE_PNG)
-		threading.Thread(target=self.sendCaptcha).start()
+		image = bmp.ConvertToImage()
+		captcha = io.BytesIO()
+		image.SaveStream(captcha, wx.BITMAP_TYPE_PNG)
+		threading.Thread(target=self.sendCaptcha, args=(captcha,)).start()
 	script_startRecognition.__doc__ = _('To start solving captcha')
 
 	def script_getBalance(self, gesture):
