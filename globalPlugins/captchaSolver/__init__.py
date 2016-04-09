@@ -46,6 +46,7 @@ class captchaSolverSettingsDialog(gui.SettingsDialog):
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _('Captcha Solver')
+	run = True
 	responses = {
 		'ERROR_WRONG_USER_KEY': _('API key is not specified'),
 		'ERROR_KEY_DOES_NOT_EXIST': _('Used a non-existent API key'),
@@ -95,8 +96,8 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 			return
 
 		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
-		time.sleep(7)
-		while True:
+		time.sleep(3)
+		while self.run:
 			try:
 				status = urllib.urlopen('http://rucaptcha.com/res.php?key=%s&action=get&id=%s' % (key, response[3:])).read()
 			except:
@@ -126,6 +127,9 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 			ui.message(self.responses[balance])
 		else:
 			ui.message(_('Your account balance: %s rubles') % balance[:-3])
+
+	def terminate(self):
+		self.run = False
 
 	def script_startRecognition(self, gesture):
 		obj = api.getNavigatorObject()
