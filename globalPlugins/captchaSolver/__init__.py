@@ -104,9 +104,9 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 				tones.beep(100, 200)
 				ui.message(_('I can not get the recognition result. Please check your internet connection'))
 				return
-			if status != 'CAPCHA_NOT_READY':
-				break
+			if (status != 'CAPCHA_NOT_READY') and self.run: break
 			time.sleep(3)
+		else: return
 
 		if status.startswith('OK|'):
 			api.copyToClip(status.decode('utf-8')[3:])
