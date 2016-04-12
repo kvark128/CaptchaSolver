@@ -7,6 +7,10 @@ import addonHandler
 
 addonHandler.initTranslation()
 fileConfigPath = os.path.join(globalVars.appArgs.configPath, 'captchaSolverSettings.pickle')
+defaultConf = {
+	'key': '',
+	'regsense': False,
+}
 
 def saveConfig():
 	try:
@@ -22,10 +26,11 @@ def loadConfig():
 		conf = pickle.load(fileConfig)
 		fileConfig.close()
 	except:
-		conf = {
-			'key': '',
-			'regsense': False,
-		}
+		conf = defaultConf
+	else:
+		for i in defaultConf:
+			if i not in conf:
+				conf[i] = defaultConf[i]
 	return conf
 
 conf = loadConfig()
