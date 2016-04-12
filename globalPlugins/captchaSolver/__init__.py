@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os.path
-import sys
 import io
 import httplib
 import threading
@@ -15,34 +14,25 @@ import gui
 import addonHandler
 import ui
 import api
+import _config
 
 addonHandler.initTranslation()
-moduleDir = os.path.dirname(__file__.decode(sys.getfilesystemencoding()))
-keyFile = os.path.join(moduleDir, 'key.txt')
-try:
-	key = open(keyFile).read()
-except:
-	key = ''
 
 class captchaSolverSettingsDialog(gui.SettingsDialog):
 	title = _('Captcha Solver Settings')
 
 	def makeSettings(self, sizer):
 		sizer.Add(wx.StaticText(self, label=_('API key:')))
-		self.key = wx.TextCtrl(self, value=key.decode('utf-8'))
+		self.key = wx.TextCtrl(self, value=urllib.unquote(_config.conf['key']).decode('utf-8'))
 		sizer.Add(self.key)
 
 	def postInit(self):
 		self.key.SetFocus()
 
 	def onOk(self, event):
-		global key
 		super(captchaSolverSettingsDialog, self).onOk(event)
-		key = self.key.Value.encode('utf-8')
-		try:
-			open(keyFile, 'w').write(key)
-		except (IOError, OSError), e:
-			gui.messageBox(e.strerror, _('Error saving settings'), style=wx.OK | wx.ICON_ERROR, parent=self)
+		_config.conf['key'] = urllib.quote(self.key.Value.encode('utf-8'))
+		_config.saveConfig()
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _('Captcha Solver')
@@ -76,7 +66,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 
 {captcha}
 ------------bundary--------
-'''.format(key=key, captcha=captcha.getvalue())
+'''.format(key=_config.conf['key'], captcha=captcha.getvalue())
 
 		headers = {'Content-Type': 'multipart/form-data; boundary=----------bundary------'}
 		server = httplib.HTTPConnection('rucaptcha.com', timeout=10)
@@ -99,7 +89,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 		time.sleep(3)
 		while self.run:
 			try:
-				status = urllib.urlopen('http://rucaptcha.com/res.php?key=%s&action=get&id=%s' % (key, response[3:])).read()
+				status = urllib.urlopen('http://rucaptcha.com/res.php?key=%s&action=get&id=%s' % (_config.conf['key'], response[3:])).read()
 			except:
 				tones.beep(100, 200)
 				ui.message(_('I can not get the recognition result. Please check your internet connection'))
@@ -118,7 +108,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 
 	def balance(self):
 		try:
-			balance = urllib.urlopen('http://rucaptcha.com/res.php?key=%s&action=getbalance' % key).read()
+			balance = urllib.urlopen('http://rucaptcha.com/res.php?key=%s&action=getbalance' % _config.conf['key']).read()
 		except IOError:
 			tones.beep(100, 200)
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
