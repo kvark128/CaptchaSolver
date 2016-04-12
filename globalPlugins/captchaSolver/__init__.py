@@ -22,15 +22,20 @@ class captchaSolverSettingsDialog(gui.SettingsDialog):
 	title = _('Captcha Solver Settings')
 
 	def makeSettings(self, sizer):
+		self.regsense = wx.CheckBox(self, label=_('Recognition register has the significance'))
+		self.regsense.SetValue(_config.conf['regsense'])
+		sizer.Add(self.regsense)
+
 		sizer.Add(wx.StaticText(self, label=_('API key:')))
 		self.key = wx.TextCtrl(self, value=urllib.unquote(_config.conf['key']).decode('utf-8'))
 		sizer.Add(self.key)
 
 	def postInit(self):
-		self.key.SetFocus()
+		self.regsense.SetFocus()
 
 	def onOk(self, event):
 		super(captchaSolverSettingsDialog, self).onOk(event)
+		_config.conf['regsense'] = self.regsense.Value
 		_config.conf['key'] = urllib.quote(self.key.Value.encode('utf-8'))
 		_config.saveConfig()
 
@@ -58,6 +63,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def sendCaptcha(self, captcha):
 		body = '''------------bundary------
+Content-Disposition: form-data; name="regsense"
+
+{regsense}
+------------bundary------
 Content-Disposition: form-data; name="key"
 
 {key}
@@ -66,7 +75,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 
 {captcha}
 ------------bundary--------
-'''.format(key=_config.conf['key'], captcha=captcha.getvalue())
+'''.format(regsense=int(_config.conf['regsense']), key=_config.conf['key'], captcha=captcha.getvalue())
 
 		headers = {'Content-Type': 'multipart/form-data; boundary=----------bundary------'}
 		server = httplib.HTTPConnection('rucaptcha.com', timeout=10)

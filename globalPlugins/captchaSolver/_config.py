@@ -24,6 +24,7 @@ def loadConfig():
 	except:
 		conf = {
 			'key': '',
+			'regsense': False,
 		}
 	return conf
 
