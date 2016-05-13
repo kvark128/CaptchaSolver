@@ -22,7 +22,7 @@ except:
 def saveConfig():
 	try:
 		fileConfig = open(fileConfigPath, 'wb')
-		cPickle.dump(conf, fileConfig)
+		cPickle.dump(conf, fileConfig, cPickle.HIGHEST_PROTOCOL)
 		fileConfig.close()
 	except (IOError, OSError), e:
 		gui.messageBox(e.strerror, _('Error saving settings'), style=wx.OK | wx.ICON_ERROR)
