@@ -1,5 +1,5 @@
 import globalVars
-import pickle
+import cPickle
 import os.path
 import wx
 import gui
@@ -14,7 +14,7 @@ conf = {
 
 try:
 	fileConfig = open(fileConfigPath, 'rb')
-	conf.update(pickle.load(fileConfig))
+	conf.update(cPickle.load(fileConfig))
 	fileConfig.close()
 except:
 	pass
@@ -22,7 +22,7 @@ except:
 def saveConfig():
 	try:
 		fileConfig = open(fileConfigPath, 'wb')
-		pickle.dump(conf, fileConfig)
+		cPickle.dump(conf, fileConfig)
 		fileConfig.close()
 	except (IOError, OSError), e:
 		gui.messageBox(e.strerror, _('Error saving settings'), style=wx.OK | wx.ICON_ERROR)
