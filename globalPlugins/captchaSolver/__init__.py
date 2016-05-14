@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os.path
 import io
 import httplib
 import threading
@@ -14,6 +13,7 @@ import gui
 import addonHandler
 import ui
 import api
+from logHandler import log
 import _config
 
 addonHandler.initTranslation()
@@ -22,7 +22,7 @@ class captchaSolverSettingsDialog(gui.SettingsDialog):
 	title = _('Captcha Solver Settings')
 
 	def makeSettings(self, sizer):
-		self.regsense = wx.CheckBox(self, label=_('Recognition register has the significance'))
+		self.regsense = wx.CheckBox(self, label=_('Case sensitive recognition'))
 		self.regsense.SetValue(_config.conf['regsense'])
 		sizer.Add(self.regsense)
 
@@ -114,6 +114,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 			ui.message(self.responses[status])
 		else:
 			ui.message(_('Error: %s') % status.decode('utf-8'))
+			log.error(status)
 
 	def balance(self):
 		try:

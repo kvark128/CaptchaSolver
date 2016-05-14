@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2016-04-12 19:32+0800\n"
-"PO-Revision-Date: 2016-04-12 19:37+0800\n"
+"POT-Creation-Date: 2016-05-14 10:24+0800\n"
+"PO-Revision-Date: 2016-05-14 10:35+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -20,8 +20,8 @@ msgid "Captcha Solver Settings"
 msgstr "Настройки Captcha Solver"
 
 #: ..\..\..\globalPlugins/captchaSolver/__init__.py:25
-msgid "Recognition register has the significance"
-msgstr "Регистр распознавания имеет значение"
+msgid "Case sensitive recognition"
+msgstr "Учитывать регистр при распознавании"
 
 #: ..\..\..\globalPlugins/captchaSolver/__init__.py:29
 msgid "API key:"
@@ -129,40 +129,43 @@ msgstr "Капча успешно распознана! Результат по�
 msgid "Error: %s"
 msgstr "Ошибка: %s"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:123
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:124
 msgid "Failed to get account balance. Please check your internet connection"
 msgstr ""
 "Не удалось получить баланс аккаунта. Пожалуйста, проверьте ваше интернет-"
 "соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:128
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:129
 #, python-format
 msgid "Your account balance: %s rubles"
 msgstr "Баланс вашего аккаунта: %s рублей"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:136
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:137
 msgid "This is not a captcha!"
 msgstr "Это не капча!"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:141
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:142
 msgid "Captcha has no location"
 msgstr "Капча не имеет местоположения"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:150
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:151
 msgid "To start solving captcha"
 msgstr "Начать решение капчи"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:154
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:155
 msgid "Report account balance"
 msgstr "Сообщить баланс аккаунта"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:158
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:159
 msgid "Show the settings dialog"
 msgstr "Показать диалог настроек"
 
-#: ..\..\..\globalPlugins/captchaSolver/_config.py:17
+#: ..\..\..\globalPlugins/captchaSolver/_config.py:28
 msgid "Error saving settings"
 msgstr "Ошибка при сохранении настроек"
+
+#~ msgid "Recognition register has the significance"
+#~ msgstr "Регистр распознавания имеет значение"
 
 #~ msgid "Error"
 #~ msgstr "Ошибка"
