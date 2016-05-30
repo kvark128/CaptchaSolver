@@ -157,8 +157,3 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 	def script_showSettingsDialog(self, gesture):
 		gui.mainFrame._popupSettingsDialog(captchaSolverSettingsDialog)
 	script_showSettingsDialog.__doc__ = _('Show the settings dialog')
-
-	__gestures = {
-		'kb:nvda+shift+c': 'startRecognition',
-		'kb:nvda+control+shift+c': 'getBalance',
-	}
