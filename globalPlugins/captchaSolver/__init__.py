@@ -14,6 +14,7 @@ import addonHandler
 import ui
 import api
 from logHandler import log
+from responses import responses
 import _config
 
 addonHandler.initTranslation()
@@ -42,18 +43,6 @@ class captchaSolverSettingsDialog(gui.SettingsDialog):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _('Captcha Solver')
 	run = True
-	responses = {
-		'ERROR_WRONG_USER_KEY': _('API key is not specified'),
-		'ERROR_KEY_DOES_NOT_EXIST': _('Used a non-existent API key'),
-		'ERROR_ZERO_BALANCE': _('The balance of your account is zero'),
-		'ERROR_NO_SLOT_AVAILABLE': _('The current recognition rate is higher than the maximum set in the settings of Your account. Either on the server queue builds up and employees do not have time to disassemble it, repeat the sending captcha after 5 seconds'),
-		'ERROR_ZERO_CAPTCHA_FILESIZE': _('Size of the captcha is less than 100 bytes'),
-		'ERROR_TOO_BIG_CAPTCHA_FILESIZE': _('Size of the captcha more than 100 KB'),
-		'ERROR_IP_NOT_ALLOWED': _('In Your account you have configured restrictions based on IP from which you can make requests. And the IP from which the request is not included in the allowed list'),
-		'IP_BANNED': _('IP address from which the request is blocked because of frequent requests with various incorrect API keys. The lock is released in an hour'),
-		'ERROR_CAPTCHA_UNSOLVABLE': _('Captcha could not solve 3 different employee. Money for this image come back to balance'),
-		'ERROR_BAD_DUPLICATES': _('The error appears when 100% recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received'),
-	}
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
@@ -91,7 +80,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 
 		if not response.startswith('OK|'):
 			tones.beep(100, 200)
-			ui.message(self.responses[response])
+			ui.message(responses[response])
 			return
 
 		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
@@ -110,8 +99,8 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 		if status.startswith('OK|'):
 			api.copyToClip(status.decode('utf-8')[3:])
 			ui.message(_('Captcha solved successfully! The result copied to the clipboard'))
-		elif status in self.responses:
-			ui.message(self.responses[status])
+		elif status in responses:
+			ui.message(responses[status])
 		else:
 			ui.message(_('Error: %s') % status.decode('utf-8'))
 			log.error(status)
@@ -123,9 +112,9 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 			tones.beep(100, 200)
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
 			return
-		if balance in self.responses:
-			ui.message(self.responses[balance])
-		else:
+		try:
+			ui.message(responses[balance])
+		except KeyError:
 			ui.message(_('Your account balance: {:.2f} rubles').format(float(balance)))
 
 	def terminate(self):
