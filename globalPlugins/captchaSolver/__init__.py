@@ -118,7 +118,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 
 	def balance(self):
 		try:
-			balance = urllib.urlopen('http://rucaptcha.com/res.php?key=%s&action=getbalance' % _config.conf['key']).read()
+			balance = urllib.urlopen('http://rucaptcha.com/res.php?key={}&action=getbalance'.format(_config.conf['key'])).read()
 		except IOError:
 			tones.beep(100, 200)
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
@@ -126,7 +126,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 		if balance in self.responses:
 			ui.message(self.responses[balance])
 		else:
-			ui.message(_('Your account balance: %s rubles') % balance[:-3])
+			ui.message(_('Your account balance: {:.2f} rubles').format(float(balance)))
 
 	def terminate(self):
 		self.run = False
