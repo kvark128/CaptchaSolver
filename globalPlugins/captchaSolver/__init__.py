@@ -80,6 +80,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 
 		if not response.startswith('OK|'):
 			tones.beep(100, 200)
+			log.error(response)
 			ui.message(responses[response])
 			return
 
@@ -99,10 +100,13 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 		if status.startswith('OK|'):
 			api.copyToClip(status.decode('utf-8')[3:])
 			ui.message(_('Captcha solved successfully! The result copied to the clipboard'))
-		elif status in responses:
+			return
+
+		try:
 			ui.message(responses[status])
-		else:
-			ui.message(_('Error: %s') % status.decode('utf-8'))
+		except KeyError:
+			ui.message(_('Error: {}').format(status))
+		finally:
 			log.error(status)
 
 	def balance(self):
@@ -113,9 +117,11 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
 			return
 		try:
-			ui.message(responses[balance])
-		except KeyError:
 			ui.message(_('Your account balance: {:.2f} rubles').format(float(balance)))
+		except ValueError:
+			log.error(balance)
+			if balance in responses:
+				ui.message(responses[balance])
 
 	def terminate(self):
 		self.run = False
