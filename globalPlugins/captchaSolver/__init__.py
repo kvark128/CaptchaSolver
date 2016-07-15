@@ -117,7 +117,7 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
 			return
 		try:
-			ui.message(_('Your account balance: {:.2f} rubles').format(float(balance)))
+			ui.message(_('Balance: {balance:.2f} rubles').format(balance=float(balance)))
 		except ValueError:
 			log.error(balance)
 			if balance in responses:

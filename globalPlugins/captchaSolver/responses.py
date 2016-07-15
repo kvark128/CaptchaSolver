@@ -12,5 +12,5 @@ responses = {
 	'ERROR_IP_NOT_ALLOWED': _('In Your account you have configured restrictions based on IP from which you can make requests. And the IP from which the request is not included in the allowed list'),
 	'IP_BANNED': _('IP address from which the request is blocked because of frequent requests with various incorrect API keys. The lock is released in an hour'),
 	'ERROR_CAPTCHA_UNSOLVABLE': _('Captcha could not solve 3 different employee. Money for this image come back to balance'),
-	'ERROR_BAD_DUPLICATES': _('The error appears when 100% recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received'),
+	'ERROR_BAD_DUPLICATES': _('The error appears when 100 percent recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received'),
 }
