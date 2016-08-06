@@ -6,8 +6,6 @@ import threading
 import time
 import urllib
 import globalPluginHandler
-import controlTypes
-import scriptHandler
 import tones
 import wx
 import gui
@@ -129,9 +127,6 @@ Content-Disposition: form-data; name="file"; filename="captcha.png"
 
 	def script_startRecognition(self, gesture):
 		obj = api.getNavigatorObject()
-		if not scriptHandler.getLastScriptRepeatCount() and obj.role != controlTypes.ROLE_GRAPHIC:
-			ui.message(_('This is not a captcha!'))
-			return
 		try:
 			x, y, width, height = obj.location
 		except:
