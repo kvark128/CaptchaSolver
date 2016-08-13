@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import io
-import httplib
 import threading
 import time
 import urllib
