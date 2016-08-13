@@ -14,6 +14,7 @@ import ui
 import api
 from logHandler import log
 from responses import responses
+import multipart
 import _config
 
 addonHandler.initTranslation()
@@ -50,32 +51,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU , lambda i: gui.mainFrame._popupSettingsDialog(captchaSolverSettingsDialog), self.captchaSolverSettingsItem)
 
 	def sendCaptcha(self, captcha):
-		body = '''------------bundary------
-Content-Disposition: form-data; name="regsense"
-
-{regsense}
-------------bundary------
-Content-Disposition: form-data; name="key"
-
-{key}
-------------bundary------
-Content-Disposition: form-data; name="file"; filename="captcha.png"
-
-{captcha}
-------------bundary--------
-'''.format(regsense=int(_config.conf['regsense']), key=_config.conf['key'], captcha=captcha.getvalue())
-
-		headers = {'Content-Type': 'multipart/form-data; boundary=----------bundary------'}
-		server = httplib.HTTPConnection('rucaptcha.com', timeout=10)
-		try:
-			server.request('POST', '/in.php', body, headers)
-			response = server.getresponse().read()
-		except httplib.socket.gaierror:
+		response = multipart.post(captcha.getvalue(), key=_config.conf['key'], regsense=int(_config.conf['regsense']))
+		if not response:
 			tones.beep(100, 200)
 			ui.message(_('Failed to send captcha. Please check your Internet connection'))
 			return
-		finally:
-			server.close()
 
 		if not response.startswith('OK|'):
 			tones.beep(100, 200)
