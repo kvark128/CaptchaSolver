@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2016-07-15 08:23+0800\n"
-"PO-Revision-Date: 2016-07-15 08:26+0800\n"
+"POT-Creation-Date: 2016-08-13 10:43+0800\n"
+"PO-Revision-Date: 2016-08-13 10:43+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -35,12 +35,12 @@ msgstr "Captcha Solver"
 msgid "Captcha Solver Settings..."
 msgstr "Настройки Captcha Solver..."
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:76
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:57
 msgid "Failed to send captcha. Please check your Internet connection"
 msgstr ""
 "Не удалось отправить капчу. Пожалуйста, проверьте ваше Интернет-соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:87
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:66
 msgid ""
 "Captcha successfully sent to the recognition. You will be notified when the "
 "result will be ready"
@@ -48,49 +48,45 @@ msgstr ""
 "Капча успешно отправлена на распознавание. Вы будете уведомлены, когда "
 "результат будет готов"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:94
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:73
 msgid ""
 "I can not get the recognition result. Please check your internet connection"
 msgstr ""
 "Не удалось получить результат распознавания. Пожалуйста, проверьте ваше "
 "Интернет-соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:102
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:81
 msgid "Captcha solved successfully! The result copied to the clipboard"
 msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:108
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:87
 msgid "Error: {}"
 msgstr "Ошибка: {}"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:117
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:96
 msgid "Failed to get account balance. Please check your internet connection"
 msgstr ""
 "Не удалось получить баланс аккаунта. Пожалуйста, проверьте ваше интернет-"
 "соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:120
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:99
 #, python-brace-format
 msgid "Balance: {balance:.2f} rubles"
 msgstr "Баланс: {balance:.2f} рублей"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:132
-msgid "This is not a captcha!"
-msgstr "Это не капча!"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:137
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:113
 msgid "Captcha has no location"
 msgstr "Капча не имеет местоположения"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:146
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:122
 msgid "To start solving captcha"
 msgstr "Начать решение капчи"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:150
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:126
 msgid "Report account balance"
 msgstr "Сообщить баланс аккаунта"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:154
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:130
 msgid "Show the settings dialog"
 msgstr "Показать диалог настроек"
 
@@ -162,6 +158,9 @@ msgstr ""
 "Ошибка появляется при включённом 100-процентном распознании. Было "
 "использовано максимальное количество попыток, но необходимое количество "
 "одинаковых ответов не было набрано"
+
+#~ msgid "This is not a captcha!"
+#~ msgstr "Это не капча!"
 
 #~ msgid "Recognition register has the significance"
 #~ msgstr "Регистр распознавания имеет значение"
