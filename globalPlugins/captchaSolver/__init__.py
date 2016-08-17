@@ -17,6 +17,7 @@ import multipart
 import _config
 
 addonHandler.initTranslation()
+URL = 'https://rucaptcha.com/res.php'
 
 class captchaSolverSettingsDialog(gui.SettingsDialog):
 	title = _('Captcha Solver Settings')
@@ -66,7 +67,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		time.sleep(3)
 		while self.run:
 			try:
-				status = urllib.urlopen('http://rucaptcha.com/res.php?key=%s&action=get&id=%s' % (_config.conf['key'], response[3:])).read()
+				status = urllib.urlopen('%s?key=%s&action=get&id=%s' % (URL, _config.conf['key'], response[3:])).read()
 			except:
 				tones.beep(100, 200)
 				ui.message(_('I can not get the recognition result. Please check your internet connection'))
@@ -89,7 +90,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def balance(self):
 		try:
-			balance = urllib.urlopen('http://rucaptcha.com/res.php?key={}&action=getbalance'.format(_config.conf['key'])).read()
+			balance = urllib.urlopen('{}?key={}&action=getbalance'.format(URL, _config.conf['key'])).read()
 		except IOError:
 			tones.beep(100, 200)
 			ui.message(_('Failed to get account balance. Please check your internet connection'))

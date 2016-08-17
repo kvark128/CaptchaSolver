@@ -3,7 +3,7 @@ import io
 from uuid import uuid4
 from urlparse import urlparse
 
-URL = urlparse('http://rucaptcha.com/in.php')
+URL = urlparse('https://rucaptcha.com/in.php')
 BOUNDARY = uuid4().hex
 
 def post(captcha, **fields):
@@ -24,7 +24,7 @@ def post(captcha, **fields):
 		'Content-Type': 'multipart/form-data; boundary=%s' % BOUNDARY,
 	}
 
-	server = httplib.HTTPConnection(URL.hostname, timeout=10)
+	server = httplib.HTTPSConnection(URL.hostname, timeout=10)
 	try:
 		server.request('POST', URL.path, body.getvalue(), headers)
 		return server.getresponse().read()
