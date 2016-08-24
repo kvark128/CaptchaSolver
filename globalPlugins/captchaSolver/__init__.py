@@ -13,36 +13,11 @@ import ui
 import api
 from logHandler import log
 from responses import responses
+from interface import SettingsDialog
 import multipart
 import _config
 
 addonHandler.initTranslation()
-
-class captchaSolverSettingsDialog(gui.SettingsDialog):
-	title = _('Captcha Solver Settings')
-
-	def makeSettings(self, sizer):
-		self.regsense = wx.CheckBox(self, label=_('Case sensitive recognition'))
-		self.regsense.SetValue(_config.conf['regsense'])
-		sizer.Add(self.regsense)
-
-		self.https = wx.CheckBox(self, label=_('Use HTTPS'))
-		self.https.SetValue(_config.conf['https'])
-		sizer.Add(self.https)
-
-		sizer.Add(wx.StaticText(self, label=_('API key:')))
-		self.key = wx.TextCtrl(self, value=urllib.unquote(_config.conf['key']).decode('utf-8'))
-		sizer.Add(self.key)
-
-	def postInit(self):
-		self.regsense.SetFocus()
-
-	def onOk(self, event):
-		super(captchaSolverSettingsDialog, self).onOk(event)
-		_config.conf['regsense'] = self.regsense.Value
-		_config.conf['https'] = self.https.Value
-		_config.conf['key'] = urllib.quote(self.key.Value.encode('utf-8'))
-		_config.saveConfig()
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _('Captcha Solver')
@@ -52,7 +27,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__()
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.menu.GetMenuItems()[1].GetSubMenu()
 		self.captchaSolverSettingsItem = self.prefsMenu.Append(wx.ID_ANY, _('Captcha Solver Settings...'))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU , lambda i: gui.mainFrame._popupSettingsDialog(captchaSolverSettingsDialog), self.captchaSolverSettingsItem)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU , lambda i: gui.mainFrame._popupSettingsDialog(SettingsDialog), self.captchaSolverSettingsItem)
 
 	def sendCaptcha(self, captcha):
 		response = multipart.post(captcha.getvalue(), key=_config.conf['key'], regsense=int(_config.conf['regsense']))
@@ -132,5 +107,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_getBalance.__doc__ = _('Report account balance')
 
 	def script_showSettingsDialog(self, gesture):
-		gui.mainFrame._popupSettingsDialog(captchaSolverSettingsDialog)
+		gui.mainFrame._popupSettingsDialog(SettingsDialog)
 	script_showSettingsDialog.__doc__ = _('Show the settings dialog')
