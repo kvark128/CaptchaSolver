@@ -23,12 +23,11 @@ def post(captcha, **fields):
 	headers = {
 		'Host': URL.hostname,
 		'Content-Type': 'multipart/form-data; boundary=%s' % BOUNDARY,
+		'Content-Length': len(body.getvalue()),
 	}
 
-	if _config.conf['https']:
-		server = httplib.HTTPSConnection(URL.hostname, timeout=10)
-	else:
-		server = httplib.HTTPConnection(URL.hostname, timeout=10)
+	Connection = httplib.HTTPSConnection if _config.conf['https'] else httplib.HTTPConnection
+	server = Connection(URL.hostname, timeout=10)
 	try:
 		server.request('POST', URL.path, body.getvalue(), headers)
 		return server.getresponse().read()
