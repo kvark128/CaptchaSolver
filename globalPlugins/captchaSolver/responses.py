@@ -13,4 +13,5 @@ responses = {
 	'IP_BANNED': _('IP address from which the request is blocked because of frequent requests with various incorrect API keys. The lock is released in an hour'),
 	'ERROR_CAPTCHA_UNSOLVABLE': _('Captcha could not solve 3 different employee. Money for this image come back to balance'),
 	'ERROR_BAD_DUPLICATES': _('The error appears when 100 percent recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received'),
+	'ERROR_CAPTCHAIMAGE_BLOCKED': _('This captcha can not be recognized'),
 }
