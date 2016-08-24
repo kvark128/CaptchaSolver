@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2016-08-13 10:43+0800\n"
-"PO-Revision-Date: 2016-08-13 10:43+0800\n"
+"POT-Creation-Date: 2016-08-24 13:51+0800\n"
+"PO-Revision-Date: 2016-08-24 13:54+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -15,32 +15,20 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: ..\\..\\..\\globalPlugins\n"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:23
-msgid "Captcha Solver Settings"
-msgstr "Настройки Captcha Solver"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:26
-msgid "Case sensitive recognition"
-msgstr "Учитывать регистр при распознавании"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:30
-msgid "API key:"
-msgstr "Ключ API:"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:44
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:21
 msgid "Captcha Solver"
 msgstr "Captcha Solver"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:50
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:27
 msgid "Captcha Solver Settings..."
 msgstr "Настройки Captcha Solver..."
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:57
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:34
 msgid "Failed to send captcha. Please check your Internet connection"
 msgstr ""
 "Не удалось отправить капчу. Пожалуйста, проверьте ваше Интернет-соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:66
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:42
 msgid ""
 "Captcha successfully sent to the recognition. You will be notified when the "
 "result will be ready"
@@ -48,51 +36,68 @@ msgstr ""
 "Капча успешно отправлена на распознавание. Вы будете уведомлены, когда "
 "результат будет готов"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:73
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:50
 msgid ""
 "I can not get the recognition result. Please check your internet connection"
 msgstr ""
 "Не удалось получить результат распознавания. Пожалуйста, проверьте ваше "
 "Интернет-соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:81
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:58
 msgid "Captcha solved successfully! The result copied to the clipboard"
 msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:87
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:64
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:83
 msgid "Error: {}"
 msgstr "Ошибка: {}"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:96
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:74
 msgid "Failed to get account balance. Please check your internet connection"
 msgstr ""
 "Не удалось получить баланс аккаунта. Пожалуйста, проверьте ваше интернет-"
 "соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:99
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:77
 #, python-brace-format
 msgid "Balance: {balance:.2f} rubles"
 msgstr "Баланс: {balance:.2f} рублей"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:113
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:93
 msgid "Captcha has no location"
 msgstr "Капча не имеет местоположения"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:122
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:102
 msgid "To start solving captcha"
 msgstr "Начать решение капчи"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:126
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:106
 msgid "Report account balance"
 msgstr "Сообщить баланс аккаунта"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:130
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:110
 msgid "Show the settings dialog"
 msgstr "Показать диалог настроек"
 
-#: ..\..\..\globalPlugins/captchaSolver/_config.py:28
+#: ..\..\..\globalPlugins/captchaSolver/_config.py:29
 msgid "Error saving settings"
 msgstr "Ошибка при сохранении настроек"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:10
+msgid "Captcha Solver Settings"
+msgstr "Настройки Captcha Solver"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:13
+msgid "Case sensitive recognition"
+msgstr "Учитывать регистр при распознавании"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:17
+msgid "Use HTTPS"
+msgstr "Использовать HTTPS"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:21
+msgid "API key:"
+msgstr "Ключ API:"
 
 #: ..\..\..\globalPlugins/captchaSolver/responses.py:6
 msgid "API key is not specified"
@@ -158,6 +163,10 @@ msgstr ""
 "Ошибка появляется при включённом 100-процентном распознании. Было "
 "использовано максимальное количество попыток, но необходимое количество "
 "одинаковых ответов не было набрано"
+
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:16
+msgid "This captcha can not be recognized"
+msgstr "Эту капчу невозможно распознать"
 
 #~ msgid "This is not a captcha!"
 #~ msgstr "Это не капча!"
