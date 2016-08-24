@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import io
 import threading
 import time
@@ -21,7 +19,7 @@ addonHandler.initTranslation()
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _('Captcha Solver')
-	run = True
+	_running = True
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
@@ -37,22 +35,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 
 		if not response.startswith('OK|'):
-			tones.beep(100, 200)
-			log.error(response)
+			log.warning(response)
 			ui.message(responses[response])
 			return
 
 		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
 		time.sleep(3)
 		protocol = 'https://' if _config.conf['https'] else 'http://'
-		while self.run:
+		while self._running:
 			try:
 				status = urllib.urlopen('{}rucaptcha.com/res.php?key={}&action=get&id={}'.format(protocol, _config.conf['key'], response[3:])).read()
 			except:
 				tones.beep(100, 200)
 				ui.message(_('I can not get the recognition result. Please check your internet connection'))
 				return
-			if (status != 'CAPCHA_NOT_READY') and self.run: break
+			if (status != 'CAPCHA_NOT_READY') and self._running: break
 			time.sleep(3)
 		else: return
 
@@ -72,19 +69,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		protocol = 'https://' if _config.conf['https'] else 'http://'
 		try:
 			balance = urllib.urlopen('{}rucaptcha.com/res.php?key={}&action=getbalance'.format(protocol, _config.conf['key'])).read()
-		except IOError:
+		except:
 			tones.beep(100, 200)
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
 			return
 		try:
 			ui.message(_('Balance: {balance:.2f} rubles').format(balance=float(balance)))
 		except ValueError:
-			log.error(balance)
-			if balance in responses:
+			log.warning(balance)
+			try:
 				ui.message(responses[balance])
+			except KeyError:
+				ui.message(_('Error: {}').format(balance))
 
 	def terminate(self):
-		self.run = False
+		self._running = False
 
 	def script_startRecognition(self, gesture):
 		obj = api.getNavigatorObject()
