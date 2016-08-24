@@ -17,7 +17,6 @@ import multipart
 import _config
 
 addonHandler.initTranslation()
-URL = 'https://rucaptcha.com/res.php'
 
 class captchaSolverSettingsDialog(gui.SettingsDialog):
 	title = _('Captcha Solver Settings')
@@ -26,6 +25,10 @@ class captchaSolverSettingsDialog(gui.SettingsDialog):
 		self.regsense = wx.CheckBox(self, label=_('Case sensitive recognition'))
 		self.regsense.SetValue(_config.conf['regsense'])
 		sizer.Add(self.regsense)
+
+		self.https = wx.CheckBox(self, label=_('Use HTTPS'))
+		self.https.SetValue(_config.conf['https'])
+		sizer.Add(self.https)
 
 		sizer.Add(wx.StaticText(self, label=_('API key:')))
 		self.key = wx.TextCtrl(self, value=urllib.unquote(_config.conf['key']).decode('utf-8'))
@@ -37,6 +40,7 @@ class captchaSolverSettingsDialog(gui.SettingsDialog):
 	def onOk(self, event):
 		super(captchaSolverSettingsDialog, self).onOk(event)
 		_config.conf['regsense'] = self.regsense.Value
+		_config.conf['https'] = self.https.Value
 		_config.conf['key'] = urllib.quote(self.key.Value.encode('utf-8'))
 		_config.saveConfig()
 
@@ -65,9 +69,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
 		time.sleep(3)
+		protocol = 'https://' if _config.conf['https'] else 'http://'
 		while self.run:
 			try:
-				status = urllib.urlopen('%s?key=%s&action=get&id=%s' % (URL, _config.conf['key'], response[3:])).read()
+				status = urllib.urlopen('{}rucaptcha.com/res.php?key={}&action=get&id={}'.format(protocol, _config.conf['key'], response[3:])).read()
 			except:
 				tones.beep(100, 200)
 				ui.message(_('I can not get the recognition result. Please check your internet connection'))
@@ -89,8 +94,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			log.error(status)
 
 	def balance(self):
+		protocol = 'https://' if _config.conf['https'] else 'http://'
 		try:
-			balance = urllib.urlopen('{}?key={}&action=getbalance'.format(URL, _config.conf['key'])).read()
+			balance = urllib.urlopen('{}rucaptcha.com/res.php?key={}&action=getbalance'.format(protocol, _config.conf['key'])).read()
 		except IOError:
 			tones.beep(100, 200)
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
