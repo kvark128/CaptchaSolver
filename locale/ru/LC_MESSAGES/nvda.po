@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2016-08-24 13:51+0800\n"
-"PO-Revision-Date: 2016-08-24 13:54+0800\n"
+"POT-Creation-Date: 2016-12-06 05:47+0800\n"
+"PO-Revision-Date: 2016-12-06 05:49+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -15,20 +15,15 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: ..\\..\\..\\globalPlugins\n"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:21
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:20
 msgid "Captcha Solver"
 msgstr "Captcha Solver"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:27
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:26
 msgid "Captcha Solver Settings..."
 msgstr "Настройки Captcha Solver..."
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:34
-msgid "Failed to send captcha. Please check your Internet connection"
-msgstr ""
-"Не удалось отправить капчу. Пожалуйста, проверьте ваше Интернет-соединение"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:42
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:35
 msgid ""
 "Captcha successfully sent to the recognition. You will be notified when the "
 "result will be ready"
@@ -36,82 +31,74 @@ msgstr ""
 "Капча успешно отправлена на распознавание. Вы будете уведомлены, когда "
 "результат будет готов"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:50
-msgid ""
-"I can not get the recognition result. Please check your internet connection"
-msgstr ""
-"Не удалось получить результат распознавания. Пожалуйста, проверьте ваше "
-"Интернет-соединение"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:58
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:46
 msgid "Captcha solved successfully! The result copied to the clipboard"
 msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:64
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:83
-msgid "Error: {}"
-msgstr "Ошибка: {}"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:74
-msgid "Failed to get account balance. Please check your internet connection"
-msgstr ""
-"Не удалось получить баланс аккаунта. Пожалуйста, проверьте ваше интернет-"
-"соединение"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:77
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:53
 #, python-brace-format
 msgid "Balance: {balance:.2f} rubles"
 msgstr "Баланс: {balance:.2f} рублей"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:93
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:60
+msgid "Error: {}"
+msgstr "Ошибка: {}"
+
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:72
 msgid "Captcha has no location"
 msgstr "Капча не имеет местоположения"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:102
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:81
 msgid "To start solving captcha"
 msgstr "Начать решение капчи"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:106
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:85
 msgid "Report account balance"
 msgstr "Сообщить баланс аккаунта"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:110
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:89
 msgid "Show the settings dialog"
 msgstr "Показать диалог настроек"
 
-#: ..\..\..\globalPlugins/captchaSolver/_config.py:29
+#: ..\..\..\globalPlugins/captchaSolver/_config.py:27
 msgid "Error saving settings"
 msgstr "Ошибка при сохранении настроек"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:10
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:9
 msgid "Captcha Solver Settings"
 msgstr "Настройки Captcha Solver"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:13
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:12
 msgid "Case sensitive recognition"
 msgstr "Учитывать регистр при распознавании"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:17
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:16
 msgid "Use HTTPS"
 msgstr "Использовать HTTPS"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:21
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:20
 msgid "API key:"
 msgstr "Ключ API:"
 
 #: ..\..\..\globalPlugins/captchaSolver/responses.py:6
+msgid "Error connecting to server. Please check your Internet connection"
+msgstr ""
+"Ошибка при подключении к серверу. Пожалуйста, проверьте ваше Интернет-"
+"соединение"
+
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:7
 msgid "API key is not specified"
 msgstr "Не указан ключ API"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:7
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:8
 msgid "Used a non-existent API key"
 msgstr "Используется несуществующий ключ API"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:8
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:9
 msgid "The balance of your account is zero"
 msgstr "Баланс вашего аккаунта нулевой"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:9
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:10
 msgid ""
 "The current recognition rate is higher than the maximum set in the settings "
 "of Your account. Either on the server queue builds up and employees do not "
@@ -121,15 +108,15 @@ msgstr ""
 "настройках Вашего аккаунта. Либо на сервере скопилась очередь и работники не "
 "успевают её разобрать, повторите отправку капчи через 5 секунд"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:10
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:11
 msgid "Size of the captcha is less than 100 bytes"
 msgstr "Размер капчи составляет менее 100 байт"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:11
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:12
 msgid "Size of the captcha more than 100 KB"
 msgstr "Размер капчи больше чем 100 килобайт"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:12
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:13
 msgid ""
 "In Your account you have configured restrictions based on IP from which you "
 "can make requests. And the IP from which the request is not included in the "
@@ -138,7 +125,7 @@ msgstr ""
 "В Вашем аккаунте настроено ограничения по IP с которых можно делать запросы. "
 "И IP, с которого пришёл данный запрос не входит в список разрешённых"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:13
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:14
 msgid ""
 "IP address from which the request is blocked because of frequent requests "
 "with various incorrect API keys. The lock is released in an hour"
@@ -146,7 +133,7 @@ msgstr ""
 "IP-адрес, с которого пришёл запрос заблокирован из-за частых обращений с "
 "различными неверными ключами API. Блокировка снимается через час"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:14
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:15
 msgid ""
 "Captcha could not solve 3 different employee. Money for this image come back "
 "to balance"
@@ -154,7 +141,7 @@ msgstr ""
 "Капчу не смогли решить 3 разных работника. Деньги за это изображение "
 "возвращаются обратно на баланс"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:15
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:16
 msgid ""
 "The error appears when 100 percent recognition. Has been used the maximum "
 "number of attempts, but the required number of identical answers has not "
@@ -164,9 +151,21 @@ msgstr ""
 "использовано максимальное количество попыток, но необходимое количество "
 "одинаковых ответов не было набрано"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:16
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:17
 msgid "This captcha can not be recognized"
 msgstr "Эту капчу невозможно распознать"
+
+#~ msgid ""
+#~ "I can not get the recognition result. Please check your internet "
+#~ "connection"
+#~ msgstr ""
+#~ "Не удалось получить результат распознавания. Пожалуйста, проверьте ваше "
+#~ "Интернет-соединение"
+
+#~ msgid "Failed to get account balance. Please check your internet connection"
+#~ msgstr ""
+#~ "Не удалось получить баланс аккаунта. Пожалуйста, проверьте ваше интернет-"
+#~ "соединение"
 
 #~ msgid "This is not a captcha!"
 #~ msgstr "Это не капча!"
