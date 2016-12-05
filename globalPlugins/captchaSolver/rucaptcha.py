@@ -6,12 +6,13 @@ import _config
 
 HOST = 'rucaptcha.com'
 BOUNDARY = uuid.uuid4().hex
-HEADERS = {
-	'Host': HOST,
-}
+SERVER = None
 
 def requestAPI(captcha=None, **fields):
 	fields['key'] = _config.conf['key']
+	headers = {
+		'Host': HOST,
+	}
 
 	if captcha:
 		body = io.BytesIO()
@@ -26,7 +27,7 @@ def requestAPI(captcha=None, **fields):
 		body.write(captcha)
 		body.write('\r\n--%s--\r\n' % BOUNDARY)
 
-		HEADERS['Content-Type'] = 'multipart/form-data; boundary=%s' % BOUNDARY
+		headers['Content-Type'] = 'multipart/form-data; boundary=%s' % BOUNDARY
 		method = 'POST'
 		path = '/in.php'
 		body = body.getvalue()
@@ -35,16 +36,14 @@ def requestAPI(captcha=None, **fields):
 		path = '/res.php?' + urllib.urlencode(fields)
 		body = None
 
+	global SERVER
 	Connection = httplib.HTTPSConnection if _config.conf['https'] else httplib.HTTPConnection
-	server = Connection(HOST, timeout=10)
+	if SERVER.__class__ != Connection:
+		SERVER = Connection(HOST, timeout=10)
 	try:
-		server.request(method, path, body, HEADERS)
-		return server.getresponse().read()
+		SERVER.request(method, path, body, headers)
+		return SERVER.getresponse().read()
 	except httplib.socket.gaierror:
 		return
 	finally:
-		server.close()
-		try:
-			del HEADERS['Content-Type']
-		except KeyError:
-			pass
+		SERVER.close()
