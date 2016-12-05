@@ -12,6 +12,7 @@ def requestAPI(captcha=None, **fields):
 	fields['key'] = _config.conf['key']
 	headers = {
 		'Host': HOST,
+		'Connection': 'close',
 	}
 
 	if captcha:
@@ -42,8 +43,13 @@ def requestAPI(captcha=None, **fields):
 		SERVER = Connection(HOST, timeout=10)
 	try:
 		SERVER.request(method, path, body, headers)
-		return SERVER.getresponse().read()
-	except httplib.socket.gaierror:
+		response = SERVER.getresponse()
+	except httplib.socket.gaierror, httplib.ssl.SSLError:
 		return
+	else:
+		if response.status == 200:
+			return response.read()
+		else:
+			return '{} {}'.format(response.status, response.reason)
 	finally:
 		SERVER.close()
