@@ -1,5 +1,4 @@
 import wx
-from urllib import quote, unquote
 import addonHandler
 import gui
 import _config
@@ -19,7 +18,7 @@ class SettingsDialog(gui.SettingsDialog):
 		sizer.Add(self.https)
 
 		sizer.Add(wx.StaticText(self, label=_('API key:')))
-		self.key = wx.TextCtrl(self, value=unquote(_config.conf['key']).decode('utf-8'))
+		self.key = wx.TextCtrl(self, value=_config.conf['key'].decode('utf-8'))
 		sizer.Add(self.key)
 
 	def postInit(self):
@@ -29,5 +28,5 @@ class SettingsDialog(gui.SettingsDialog):
 		super(SettingsDialog, self).onOk(event)
 		_config.conf['regsense'] = self.regsense.Value
 		_config.conf['https'] = self.https.Value
-		_config.conf['key'] = quote(self.key.Value.encode('utf-8'))
+		_config.conf['key'] = self.key.Value.encode('utf-8')
 		_config.saveConfig()
