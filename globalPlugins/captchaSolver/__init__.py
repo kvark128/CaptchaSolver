@@ -12,7 +12,7 @@ import api
 from logHandler import log
 from responses import responses
 from interface import SettingsDialog
-import multipart
+from rucaptcha import requestAPI
 import _config
 
 addonHandler.initTranslation()
@@ -28,7 +28,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU , lambda i: gui.mainFrame._popupSettingsDialog(SettingsDialog), self.captchaSolverSettingsItem)
 
 	def sendCaptcha(self, captcha):
-		response = multipart.post(captcha.getvalue(), key=_config.conf['key'], regsense=int(_config.conf['regsense']))
+		response = requestAPI(captcha.getvalue(), regsense=int(_config.conf['regsense']))
 		if not response:
 			tones.beep(100, 200)
 			ui.message(_('Failed to send captcha. Please check your Internet connection'))
@@ -41,11 +41,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
 		time.sleep(3)
-		protocol = 'https://' if _config.conf['https'] else 'http://'
 		while self._running:
-			try:
-				status = urllib.urlopen('{}rucaptcha.com/res.php?key={}&action=get&id={}'.format(protocol, _config.conf['key'], response[3:])).read()
-			except:
+			status = requestAPI(action='get', id=response[3:])
+			if not status:
 				tones.beep(100, 200)
 				ui.message(_('I can not get the recognition result. Please check your internet connection'))
 				return
@@ -66,10 +64,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			log.error(status)
 
 	def balance(self):
-		protocol = 'https://' if _config.conf['https'] else 'http://'
-		try:
-			balance = urllib.urlopen('{}rucaptcha.com/res.php?key={}&action=getbalance'.format(protocol, _config.conf['key'])).read()
-		except:
+		balance = requestAPI(action='getbalance')
+		if not balance:
 			tones.beep(100, 200)
 			ui.message(_('Failed to get account balance. Please check your internet connection'))
 			return
