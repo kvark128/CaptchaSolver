@@ -28,7 +28,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU , lambda i: gui.mainFrame._popupSettingsDialog(SettingsDialog), self.captchaSolverSettingsItem)
 
 	def sendCaptcha(self, captcha):
-		response = requestAPI(captcha.getvalue(), regsense=int(_config.conf['regsense']))
+		response = requestAPI(captcha.getvalue(), regsense=int(_config.conf['regsense']), soft_id=1665)
 		if not response:
 			tones.beep(100, 200)
 			ui.message(_('Failed to send captcha. Please check your Internet connection'))
