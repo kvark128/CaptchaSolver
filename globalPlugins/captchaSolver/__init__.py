@@ -3,7 +3,6 @@ import threading
 import time
 import urllib
 import globalPluginHandler
-import tones
 import wx
 import gui
 import addonHandler
@@ -29,11 +28,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def sendCaptcha(self, captcha):
 		response = requestAPI(captcha.getvalue(), regsense=int(_config.conf['regsense']), soft_id=1665)
-		if not response:
-			tones.beep(100, 200)
-			ui.message(_('Failed to send captcha. Please check your Internet connection'))
-			return
-
 		if not response.startswith('OK|'):
 			self.errorHandler(response)
 			return
@@ -42,11 +36,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		time.sleep(3)
 		while self._running:
 			status = requestAPI(action='get', id=response[3:])
-			if not status:
-				tones.beep(100, 200)
-				ui.message(_('I can not get the recognition result. Please check your internet connection'))
-				return
-			if (status != 'CAPCHA_NOT_READY') and self._running: break
+			if (status != 'CAPCHA_NOT_READY') and self._running:
+				break
 			time.sleep(2)
 		else: return
 
@@ -58,10 +49,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def balance(self):
 		balance = requestAPI(action='getbalance')
-		if not balance:
-			tones.beep(100, 200)
-			ui.message(_('Failed to get account balance. Please check your internet connection'))
-			return
 		try:
 			ui.message(_('Balance: {balance:.2f} rubles').format(balance=float(balance)))
 		except ValueError:

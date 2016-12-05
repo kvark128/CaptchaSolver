@@ -45,7 +45,7 @@ def requestAPI(captcha=None, **fields):
 		SERVER.request(method, path, body, headers)
 		response = SERVER.getresponse()
 	except httplib.socket.gaierror, httplib.ssl.SSLError:
-		return
+		return 'ERROR_CONNECTING_TO_SERVER'
 	else:
 		if response.status == 200:
 			return response.read()

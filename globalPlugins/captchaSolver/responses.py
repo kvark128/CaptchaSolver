@@ -3,6 +3,7 @@ import addonHandler
 addonHandler.initTranslation()
 
 responses = {
+	'ERROR_CONNECTING_TO_SERVER': _('Error connecting to server. Please check your Internet connection'),
 	'ERROR_WRONG_USER_KEY': _('API key is not specified'),
 	'ERROR_KEY_DOES_NOT_EXIST': _('Used a non-existent API key'),
 	'ERROR_ZERO_BALANCE': _('The balance of your account is zero'),
