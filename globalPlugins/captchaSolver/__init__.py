@@ -35,8 +35,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 
 		if not response.startswith('OK|'):
-			log.warning(response)
-			ui.message(responses[response])
+			self.errorHandler(response)
 			return
 
 		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
@@ -48,20 +47,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_('I can not get the recognition result. Please check your internet connection'))
 				return
 			if (status != 'CAPCHA_NOT_READY') and self._running: break
-			time.sleep(3)
+			time.sleep(2)
 		else: return
 
 		if status.startswith('OK|'):
 			api.copyToClip(status.decode('utf-8')[3:])
 			ui.message(_('Captcha solved successfully! The result copied to the clipboard'))
-			return
-
-		try:
-			ui.message(responses[status])
-		except KeyError:
-			ui.message(_('Error: {}').format(status))
-		finally:
-			log.error(status)
+		else:
+			self.errorHandler(status)
 
 	def balance(self):
 		balance = requestAPI(action='getbalance')
@@ -72,11 +65,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		try:
 			ui.message(_('Balance: {balance:.2f} rubles').format(balance=float(balance)))
 		except ValueError:
-			log.warning(balance)
-			try:
-				ui.message(responses[balance])
-			except KeyError:
-				ui.message(_('Error: {}').format(balance))
+			self.errorHandler(balance)
+
+	def errorHandler(self, msg):
+		text = responses.get(msg)
+		if text is None:
+			text = _('Error: {}').format(msg)
+		ui.message(text)
+		log.error(msg)
 
 	def terminate(self):
 		self._running = False
