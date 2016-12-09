@@ -30,3 +30,11 @@ class SettingsDialog(gui.SettingsDialog):
 		_config.conf['https'] = self.https.Value
 		_config.conf['key'] = self.key.Value.encode('utf-8')
 		_config.saveConfig()
+
+def createMenuItem():
+	prefsMenu = gui.mainFrame.sysTrayIcon.menu.GetMenuItems()[1].GetSubMenu()
+	captchaSolverSettingsItem = prefsMenu.Append(wx.ID_ANY, _('Captcha Solver Settings...'))
+	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, showSettingsDialog, captchaSolverSettingsItem)
+
+def showSettingsDialog(evt=None):
+	gui.mainFrame._popupSettingsDialog(SettingsDialog)

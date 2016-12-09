@@ -4,13 +4,12 @@ import time
 import urllib
 import globalPluginHandler
 import wx
-import gui
 import addonHandler
 import ui
 import api
 from logHandler import log
 from responses import responses
-from interface import SettingsDialog
+import interface
 from rucaptcha import requestAPI
 import _config
 
@@ -22,9 +21,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		self.prefsMenu = gui.mainFrame.sysTrayIcon.menu.GetMenuItems()[1].GetSubMenu()
-		self.captchaSolverSettingsItem = self.prefsMenu.Append(wx.ID_ANY, _('Captcha Solver Settings...'))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU , lambda i: gui.mainFrame._popupSettingsDialog(SettingsDialog), self.captchaSolverSettingsItem)
+		interface.createMenuItem()
 
 	def sendCaptcha(self, captcha):
 		response = requestAPI(captcha.getvalue(), regsense=int(_config.conf['regsense']), soft_id=1665)
@@ -85,5 +82,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_getBalance.__doc__ = _('Report account balance')
 
 	def script_showSettingsDialog(self, gesture):
-		gui.mainFrame._popupSettingsDialog(SettingsDialog)
+		interface.showSettingsDialog()
 	script_showSettingsDialog.__doc__ = _('Show the settings dialog')
