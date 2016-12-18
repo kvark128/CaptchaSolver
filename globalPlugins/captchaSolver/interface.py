@@ -17,9 +17,9 @@ class SettingsDialog(gui.SettingsDialog):
 		self.https.SetValue(_config.conf['https'])
 		sizer.Add(self.https)
 
-		sizer.Add(wx.StaticText(self, label=_('API key:')))
+		label = wx.StaticText(self, label=_('API key:'))
 		self.key = wx.TextCtrl(self, value=_config.conf['key'].decode('utf-8'))
-		sizer.Add(self.key)
+		sizer.Add(gui.guiHelper.associateElements(label, self.key))
 
 	def postInit(self):
 		self.regsense.SetFocus()
