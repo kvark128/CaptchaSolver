@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2016-12-06 05:47+0800\n"
-"PO-Revision-Date: 2016-12-06 05:49+0800\n"
+"POT-Creation-Date: 2016-12-19 23:56+0800\n"
+"PO-Revision-Date: 2016-12-19 23:58+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -19,11 +19,7 @@ msgstr ""
 msgid "Captcha Solver"
 msgstr "Captcha Solver"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:26
-msgid "Captcha Solver Settings..."
-msgstr "Настройки Captcha Solver..."
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:35
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:33
 msgid ""
 "Captcha successfully sent to the recognition. You will be notified when the "
 "result will be ready"
@@ -31,32 +27,28 @@ msgstr ""
 "Капча успешно отправлена на распознавание. Вы будете уведомлены, когда "
 "результат будет готов"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:46
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:44
 msgid "Captcha solved successfully! The result copied to the clipboard"
 msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:53
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:51
 #, python-brace-format
 msgid "Balance: {balance:.2f} rubles"
 msgstr "Баланс: {balance:.2f} рублей"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:60
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:58
 msgid "Error: {}"
 msgstr "Ошибка: {}"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:72
-msgid "Captcha has no location"
-msgstr "Капча не имеет местоположения"
-
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:81
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:82
 msgid "To start solving captcha"
 msgstr "Начать решение капчи"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:85
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:86
 msgid "Report account balance"
 msgstr "Сообщить баланс аккаунта"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:89
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:90
 msgid "Show the settings dialog"
 msgstr "Показать диалог настроек"
 
@@ -80,25 +72,37 @@ msgstr "Использовать HTTPS"
 msgid "API key:"
 msgstr "Ключ API:"
 
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:36
+msgid "Captcha Solver Settings..."
+msgstr "Настройки Captcha Solver..."
+
 #: ..\..\..\globalPlugins/captchaSolver/responses.py:6
+msgid "Captcha off screen"
+msgstr "Капча вне экрана"
+
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:7
+msgid "Captcha has no location"
+msgstr "Капча не имеет местоположения"
+
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:8
 msgid "Error connecting to server. Please check your Internet connection"
 msgstr ""
 "Ошибка при подключении к серверу. Пожалуйста, проверьте ваше Интернет-"
 "соединение"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:7
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:9
 msgid "API key is not specified"
 msgstr "Не указан ключ API"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:8
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:10
 msgid "Used a non-existent API key"
 msgstr "Используется несуществующий ключ API"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:9
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:11
 msgid "The balance of your account is zero"
 msgstr "Баланс вашего аккаунта нулевой"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:10
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:12
 msgid ""
 "The current recognition rate is higher than the maximum set in the settings "
 "of Your account. Either on the server queue builds up and employees do not "
@@ -108,15 +112,15 @@ msgstr ""
 "настройках Вашего аккаунта. Либо на сервере скопилась очередь и работники не "
 "успевают её разобрать, повторите отправку капчи через 5 секунд"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:11
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:13
 msgid "Size of the captcha is less than 100 bytes"
 msgstr "Размер капчи составляет менее 100 байт"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:12
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:14
 msgid "Size of the captcha more than 100 KB"
 msgstr "Размер капчи больше чем 100 килобайт"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:13
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:15
 msgid ""
 "In Your account you have configured restrictions based on IP from which you "
 "can make requests. And the IP from which the request is not included in the "
@@ -125,7 +129,7 @@ msgstr ""
 "В Вашем аккаунте настроено ограничения по IP с которых можно делать запросы. "
 "И IP, с которого пришёл данный запрос не входит в список разрешённых"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:14
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:16
 msgid ""
 "IP address from which the request is blocked because of frequent requests "
 "with various incorrect API keys. The lock is released in an hour"
@@ -133,7 +137,7 @@ msgstr ""
 "IP-адрес, с которого пришёл запрос заблокирован из-за частых обращений с "
 "различными неверными ключами API. Блокировка снимается через час"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:15
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:17
 msgid ""
 "Captcha could not solve 3 different employee. Money for this image come back "
 "to balance"
@@ -141,7 +145,7 @@ msgstr ""
 "Капчу не смогли решить 3 разных работника. Деньги за это изображение "
 "возвращаются обратно на баланс"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:16
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:18
 msgid ""
 "The error appears when 100 percent recognition. Has been used the maximum "
 "number of attempts, but the required number of identical answers has not "
@@ -151,7 +155,7 @@ msgstr ""
 "использовано максимальное количество попыток, но необходимое количество "
 "одинаковых ответов не было набрано"
 
-#: ..\..\..\globalPlugins/captchaSolver/responses.py:17
+#: ..\..\..\globalPlugins/captchaSolver/responses.py:19
 msgid "This captcha can not be recognized"
 msgstr "Эту капчу невозможно распознать"
 
