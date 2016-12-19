@@ -7,6 +7,7 @@ import wx
 import addonHandler
 import ui
 import api
+import controlTypes
 from logHandler import log
 from responses import responses
 import interface
@@ -63,10 +64,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_startRecognition(self, gesture):
 		obj = api.getNavigatorObject()
+		if controlTypes.STATE_OFFSCREEN in obj.states:
+			self.errorHandler('OFF_SCREEN')
+			return
 		try:
 			x, y, width, height = obj.location
 		except:
-			ui.message(_('Captcha has no location'))
+			self.errorHandler('CAPTCHA_HAS_NO_LOCATION')
 			return
 		bmp = wx.EmptyBitmap(width, height)
 		mem = wx.MemoryDC(bmp)

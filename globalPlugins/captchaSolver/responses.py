@@ -3,6 +3,8 @@ import addonHandler
 addonHandler.initTranslation()
 
 responses = {
+	'OFF_SCREEN': _('Captcha off screen'),
+	'CAPTCHA_HAS_NO_LOCATION': _('Captcha has no location'),
 	'ERROR_CONNECTING_TO_SERVER': _('Error connecting to server. Please check your Internet connection'),
 	'ERROR_WRONG_USER_KEY': _('API key is not specified'),
 	'ERROR_KEY_DOES_NOT_EXIST': _('Used a non-existent API key'),
