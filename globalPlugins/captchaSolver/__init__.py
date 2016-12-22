@@ -1,7 +1,6 @@
 import io
 import threading
 import time
-import urllib
 import globalPluginHandler
 import wx
 import addonHandler
