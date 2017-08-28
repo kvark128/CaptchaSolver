@@ -11,6 +11,7 @@ conf = {
 	'key': '',
 	'regsense': False,
 	'https': False,
+	'sizeReport': False,
 }
 
 try:

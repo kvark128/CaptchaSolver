@@ -17,6 +17,10 @@ class SettingsDialog(gui.SettingsDialog):
 		self.https.SetValue(_config.conf['https'])
 		sizer.Add(self.https)
 
+		self.sizeReport = wx.CheckBox(self, label=_('Size image report'))
+		self.sizeReport.SetValue(_config.conf['sizeReport'])
+		sizer.Add(self.sizeReport)
+
 		label = wx.StaticText(self, label=_('API key:'))
 		self.key = wx.TextCtrl(self, value=_config.conf['key'].decode('utf-8'))
 		sizer.Add(gui.guiHelper.associateElements(label, self.key))
@@ -28,6 +32,7 @@ class SettingsDialog(gui.SettingsDialog):
 		super(SettingsDialog, self).onOk(event)
 		_config.conf['regsense'] = self.regsense.Value
 		_config.conf['https'] = self.https.Value
+		_config.conf['sizeReport'] = self.sizeReport.Value
 		_config.conf['key'] = self.key.Value.encode('utf-8')
 		_config.saveConfig()
 

@@ -3,6 +3,7 @@ import threading
 import time
 import globalPluginHandler
 import wx
+import scriptHandler
 import addonHandler
 import ui
 import api
@@ -71,6 +72,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except:
 			self.errorHandler('CAPTCHA_HAS_NO_LOCATION')
 			return
+
+		if _config.conf['sizeReport'] and scriptHandler.getLastScriptRepeatCount() == 0:
+			ui.message(_('Size: {0} X {1} pixels').format(width, height))
+			return
+
 		bmp = wx.EmptyBitmap(width, height)
 		mem = wx.MemoryDC(bmp)
 		mem.Blit(0, 0, width, height, wx.ScreenDC(), x, y)
@@ -78,7 +84,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		captcha = io.BytesIO()
 		image.SaveStream(captcha, wx.BITMAP_TYPE_PNG)
 		threading.Thread(target=self.sendCaptcha, args=(captcha,)).start()
-	script_startRecognition.__doc__ = _('To start solving captcha')
+	script_startRecognition.__doc__ = _('Starts the recognition process')
 
 	def script_getBalance(self, gesture):
 		threading.Thread(target=self.balance).start()
