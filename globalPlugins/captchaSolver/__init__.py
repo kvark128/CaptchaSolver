@@ -70,20 +70,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if controlTypes.STATE_OFFSCREEN in obj.states:
 			self.errorHandler('OFF_SCREEN')
 			return
+
 		try:
 			x, y, width, height = obj.location
 		except:
 			self.errorHandler('CAPTCHA_HAS_NO_LOCATION')
 			return
 
-		if _config.conf['sizeReport'] and scriptHandler.getLastScriptRepeatCount() == 0:
+		if _config.conf['sizeReport'] and scriptHandler.getLastScriptRepeatCount() != 1:
 			ui.message(_('Size: {0} X {1} pixels').format(width, height))
 			return
 
 		bmp = wx.EmptyBitmap(width, height)
 		mem = wx.MemoryDC(bmp)
 		mem.Blit(0, 0, width, height, wx.ScreenDC(), x, y)
-#		image.SaveStream(captcha, wx.BITMAP_TYPE_PNG)
 		wx.CallAfter(interface.getInstruction, self.sendCaptcha, image=bmp.ConvertToImage())
 	script_startRecognition.__doc__ = _('Starts the recognition process')
 

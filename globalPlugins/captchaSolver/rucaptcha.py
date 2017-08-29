@@ -12,7 +12,7 @@ SERVER = None
 def requestAPI(**fields):
 	try:
 		image = fields.pop('image')
-	except:
+	except KeyError:
 		image = None
 	fields['key'] = _config.conf['key']
 	headers = {
