@@ -8,14 +8,18 @@ HOST = 'rucaptcha.com'
 BOUNDARY = uuid.uuid4().hex
 SERVER = None
 
-def requestAPI(captcha=None, **fields):
+def requestAPI(**fields):
+	try:
+		image = fields.pop('image')
+	except:
+		image = None
 	fields['key'] = _config.conf['key']
 	headers = {
 		'Host': HOST,
 		'Connection': 'close',
 	}
 
-	if captcha:
+	if image:
 		body = io.BytesIO()
 		for key in fields:
 			body.write('--%s\r\n' % BOUNDARY)
@@ -24,8 +28,8 @@ def requestAPI(captcha=None, **fields):
 			body.write('\r\n')
 
 		body.write('--%s\r\n' % BOUNDARY)
-		body.write('Content-Disposition: form-data; name="file"; filename="captcha.png"\r\n\r\n')
-		body.write(captcha)
+		body.write('Content-Disposition: form-data; name="file"; filename="image.png"\r\n\r\n')
+		body.write(image)
 		body.write('\r\n--%s--\r\n' % BOUNDARY)
 
 		headers['Content-Type'] = 'multipart/form-data; boundary=%s' % BOUNDARY

@@ -12,6 +12,7 @@ conf = {
 	'regsense': False,
 	'https': False,
 	'sizeReport': False,
+	'textInstruction': False,
 }
 
 try:

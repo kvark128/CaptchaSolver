@@ -24,8 +24,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__()
 		interface.createMenuItem()
 
-	def sendCaptcha(self, captcha):
-		response = requestAPI(captcha.getvalue(), regsense=int(_config.conf['regsense']), soft_id=1665)
+	def sendCaptcha(self, **kwargs):
+		kwargs['soft_id'] = 1665
+		kwargs['regsense'] = int(_config.conf['regsense'])
+		response = requestAPI(**kwargs)
 		if not response.startswith('OK|'):
 			self.errorHandler(response)
 			return
@@ -83,7 +85,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		image = bmp.ConvertToImage()
 		captcha = io.BytesIO()
 		image.SaveStream(captcha, wx.BITMAP_TYPE_PNG)
-		threading.Thread(target=self.sendCaptcha, args=(captcha,)).start()
+		wx.CallAfter(interface.getInstruction, self.sendCaptcha, image=captcha.getvalue())
 	script_startRecognition.__doc__ = _('Starts the recognition process')
 
 	def script_getBalance(self, gesture):
