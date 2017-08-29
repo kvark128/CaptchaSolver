@@ -1,4 +1,3 @@
-import io
 import threading
 import time
 import globalPluginHandler
@@ -7,6 +6,7 @@ import scriptHandler
 import addonHandler
 import ui
 import api
+import speech
 import controlTypes
 from logHandler import log
 from responses import responses
@@ -28,6 +28,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		kwargs['soft_id'] = 1665
 		kwargs['regsense'] = int(_config.conf['regsense'])
 		response = requestAPI(**kwargs)
+		speech.cancelSpeech()
 		if not response.startswith('OK|'):
 			self.errorHandler(response)
 			return
@@ -82,10 +83,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		bmp = wx.EmptyBitmap(width, height)
 		mem = wx.MemoryDC(bmp)
 		mem.Blit(0, 0, width, height, wx.ScreenDC(), x, y)
-		image = bmp.ConvertToImage()
-		captcha = io.BytesIO()
-		image.SaveStream(captcha, wx.BITMAP_TYPE_PNG)
-		wx.CallAfter(interface.getInstruction, self.sendCaptcha, image=captcha.getvalue())
+#		image.SaveStream(captcha, wx.BITMAP_TYPE_PNG)
+		wx.CallAfter(interface.getInstruction, self.sendCaptcha, image=bmp.ConvertToImage())
 	script_startRecognition.__doc__ = _('Starts the recognition process')
 
 	def script_getBalance(self, gesture):

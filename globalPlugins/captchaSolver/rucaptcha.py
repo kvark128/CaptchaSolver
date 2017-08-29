@@ -1,6 +1,7 @@
 import httplib
 import io
 import uuid
+import wx
 import urllib
 import _config
 
@@ -29,7 +30,7 @@ def requestAPI(**fields):
 
 		body.write('--%s\r\n' % BOUNDARY)
 		body.write('Content-Disposition: form-data; name="file"; filename="image.png"\r\n\r\n')
-		body.write(image)
+		image.SaveStream(body, wx.BITMAP_TYPE_PNG)
 		body.write('\r\n--%s--\r\n' % BOUNDARY)
 
 		headers['Content-Type'] = 'multipart/form-data; boundary=%s' % BOUNDARY
