@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2016-12-19 23:56+0800\n"
-"PO-Revision-Date: 2016-12-19 23:58+0800\n"
+"POT-Creation-Date: 2017-08-29 20:35+0800\n"
+"PO-Revision-Date: 2017-08-29 20:41+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Captcha Solver"
 msgstr "Captcha Solver"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:33
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:36
 msgid ""
 "Captcha successfully sent to the recognition. You will be notified when the "
 "result will be ready"
@@ -27,54 +27,75 @@ msgstr ""
 "Капча успешно отправлена на распознавание. Вы будете уведомлены, когда "
 "результат будет готов"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:44
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:47
 msgid "Captcha solved successfully! The result copied to the clipboard"
 msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:51
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:54
 #, python-brace-format
 msgid "Balance: {balance:.2f} rubles"
 msgstr "Баланс: {balance:.2f} рублей"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:58
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:61
 msgid "Error: {}"
 msgstr "Ошибка: {}"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:82
-msgid "To start solving captcha"
-msgstr "Начать решение капчи"
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:80
+#, python-brace-format
+msgid "Size: {0} X {1} pixels"
+msgstr "Размер: {0} на {1} пикселей"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:86
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:88
+msgid "Starts the recognition process"
+msgstr "Начать процесс распознавания"
+
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:92
 msgid "Report account balance"
 msgstr "Сообщить баланс аккаунта"
 
-#: ..\..\..\globalPlugins/captchaSolver/__init__.py:90
+#: ..\..\..\globalPlugins/captchaSolver/__init__.py:96
 msgid "Show the settings dialog"
 msgstr "Показать диалог настроек"
 
-#: ..\..\..\globalPlugins/captchaSolver/_config.py:27
+#: ..\..\..\globalPlugins/captchaSolver/_config.py:29
 msgid "Error saving settings"
 msgstr "Ошибка при сохранении настроек"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:9
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:10
 msgid "Captcha Solver Settings"
 msgstr "Настройки Captcha Solver"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:12
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:13
 msgid "Case sensitive recognition"
 msgstr "Учитывать регистр при распознавании"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:16
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:17
 msgid "Use HTTPS"
 msgstr "Использовать HTTPS"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:20
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:21
+msgid "Size image report"
+msgstr "Сообщать размер изображения"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:25
+msgid "Send text instruction"
+msgstr "Отправлять текстовую инструкцию"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:29
 msgid "API key:"
 msgstr "Ключ API:"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:36
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:47
 msgid "Captcha Solver Settings..."
 msgstr "Настройки Captcha Solver..."
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:55
+msgid "Instruction text (maximum 140 characters):"
+msgstr "Текст инструкции (максимум 140 символов):"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:55
+msgid "Text instruction"
+msgstr "Текстовая инструкция"
 
 #: ..\..\..\globalPlugins/captchaSolver/responses.py:6
 msgid "Captcha off screen"
@@ -158,6 +179,9 @@ msgstr ""
 #: ..\..\..\globalPlugins/captchaSolver/responses.py:19
 msgid "This captcha can not be recognized"
 msgstr "Эту капчу невозможно распознать"
+
+#~ msgid "To start solving captcha"
+#~ msgstr "Начать решение капчи"
 
 #~ msgid ""
 #~ "I can not get the recognition result. Please check your internet "

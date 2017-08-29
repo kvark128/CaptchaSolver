@@ -52,13 +52,13 @@ def showSettingsDialog(evt=None):
 
 def getInstruction(callback, **kwargs):
 	if _config.conf['textInstruction']:
-		dlg = wx.TextEntryDialog(gui.mainFrame, _('Text instruction:'), _('title'))
+		dlg = wx.TextEntryDialog(gui.mainFrame, _('Instruction text (maximum 140 characters):'), _('Text instruction'))
 		gui.mainFrame.prePopup()
 		status = dlg.ShowModal()
-		text = dlg.GetValue()
 		gui.mainFrame.postPopup()
+		text = dlg.GetValue()
 		dlg.Destroy()
 		if status != wx.ID_OK:
 			return
-		kwargs['textinstructions'] = text.encode('utf-8')
+		kwargs['textinstructions'] = text[:140].encode('utf-8')
 	threading.Thread(target=callback, kwargs=kwargs).start()
