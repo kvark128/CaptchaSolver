@@ -27,6 +27,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def sendCaptcha(self, **kwargs):
 		kwargs['soft_id'] = 1665
 		kwargs['regsense'] = int(_config.conf['regsense'])
+		kwargs['language'] = _config.conf['language']
 		response = requestAPI(**kwargs)
 		speech.cancelSpeech()
 		if not response.startswith('OK|'):

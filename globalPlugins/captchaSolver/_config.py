@@ -13,6 +13,7 @@ conf = {
 	'https': False,
 	'sizeReport': False,
 	'textInstruction': False,
+	'language': 0,
 }
 
 try:
