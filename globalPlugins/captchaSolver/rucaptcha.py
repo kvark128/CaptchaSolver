@@ -22,6 +22,7 @@ def requestAPI(**fields):
 
 	if image:
 		body = io.BytesIO()
+		fields['method'] = 'post'
 		for key in fields:
 			body.write('--%s\r\n' % BOUNDARY)
 			body.write('Content-Disposition: form-data; name="%s"\r\n\r\n' % key)
