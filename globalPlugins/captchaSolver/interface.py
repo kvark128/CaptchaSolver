@@ -1,3 +1,4 @@
+import os
 import wx
 import threading
 import addonHandler
@@ -47,9 +48,15 @@ class SettingsDialog(gui.SettingsDialog):
 		_config.saveConfig()
 
 def createMenuItem():
-	prefsMenu = gui.mainFrame.sysTrayIcon.menu.GetMenuItems()[1].GetSubMenu()
-	captchaSolverSettingsItem = prefsMenu.Append(wx.ID_ANY, _('&Captcha Solver Settings...'))
-	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, showSettingsDialog, captchaSolverSettingsItem)
+	menu_tools = gui.mainFrame.sysTrayIcon.menu.FindItemByPosition(1).GetSubMenu()
+	menu_CaptchaSolver = wx.Menu()
+	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('&Settings...'))
+	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, showSettingsDialog, item)
+	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('&Profile on rucaptcha.com'))
+	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://rucaptcha.com/auth/login'), item)
+	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('&Top up the balance'))
+	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://rucaptcha.com/pay'), item)
+	menu_tools.AppendMenu(wx.ID_ANY, _('&Captcha Solver'), menu_CaptchaSolver)
 
 def showSettingsDialog(evt=None):
 	gui.mainFrame._popupSettingsDialog(SettingsDialog)
