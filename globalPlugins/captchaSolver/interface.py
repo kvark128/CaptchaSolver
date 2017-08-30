@@ -50,13 +50,13 @@ class SettingsDialog(gui.SettingsDialog):
 def createMenuItem():
 	menu_tools = gui.mainFrame.sysTrayIcon.menu.FindItemByPosition(1).GetSubMenu()
 	menu_CaptchaSolver = wx.Menu()
-	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('&Settings...'))
+	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Settings...'))
 	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, showSettingsDialog, item)
-	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('&Profile on rucaptcha.com'))
+	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Profile on rucaptcha.com'))
 	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://rucaptcha.com/auth/login'), item)
-	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('&Top up the balance'))
-	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://rucaptcha.com/pay'), item)
-	menu_tools.AppendMenu(wx.ID_ANY, _('&Captcha Solver'), menu_CaptchaSolver)
+	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Addon webpage'))
+	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://github.com/kvark128/captchaSolver'), item)
+	menu_tools.AppendMenu(wx.ID_ANY, _('Captcha Solver'), menu_CaptchaSolver)
 
 def showSettingsDialog(evt=None):
 	gui.mainFrame._popupSettingsDialog(SettingsDialog)
