@@ -14,7 +14,7 @@ def requestAPI(**fields):
 		image = fields.pop('image')
 	except KeyError:
 		image = None
-	fields['key'] = _config.conf['key']
+	fields['key'] = _config.conf['key'].encode('utf-8')
 	headers = {
 		'Host': HOST,
 		'Connection': 'close',
