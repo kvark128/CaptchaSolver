@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2017-09-01 19:25+0800\n"
-"PO-Revision-Date: 2017-09-01 19:28+0800\n"
+"POT-Creation-Date: 2017-09-01 20:19+0800\n"
+"PO-Revision-Date: 2017-09-01 20:20+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\\..\\..\\globalPlugins\n"
 
 #: ..\..\..\globalPlugins/captchaSolver/__init__.py:20
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:63
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:65
 msgid "Captcha Solver"
 msgstr "Captcha Solver"
 
@@ -197,22 +197,26 @@ msgid "Profile on rucaptcha.com"
 msgstr "Профиль на rucaptcha.com"
 
 #: ..\..\..\globalPlugins/captchaSolver/interface.py:61
+msgid "Donate to author CaptchaSolver"
+msgstr "Пожертвовать автору CaptchaSolver"
+
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:63
 msgid "Addon webpage"
 msgstr "Web-страница дополнения"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:68
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:70
 msgid "{:.2f} rubles"
 msgstr "{:.2f} рублей"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:71
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:73
 msgid "Your account balance"
 msgstr "Баланс вашего аккаунта"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:78
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:80
 msgid "Instruction text (maximum 140 characters):"
 msgstr "Текст инструкции (максимум 140 символов):"
 
-#: ..\..\..\globalPlugins/captchaSolver/interface.py:78
+#: ..\..\..\globalPlugins/captchaSolver/interface.py:80
 msgid "Sending text instruction"
 msgstr "Отправка текстовой инструкции"
 
