@@ -5,6 +5,7 @@ import wx
 import scriptHandler
 import addonHandler
 import ui
+import globalVars
 import api
 import speech
 import controlTypes
@@ -21,7 +22,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		interface.createMenuItem()
+		if not globalVars.appArgs.secure:
+			interface.createMenuItem()
 
 	def sendCaptcha(self, **kwargs):
 		kwargs['soft_id'] = 1665
