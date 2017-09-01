@@ -23,7 +23,7 @@ _errors = {
 
 def errorHandler(msg, returnString=False):
 	text = _errors.get(msg)
-	if text is None:
+	if not isinstance(text, basestring):
 		text = _('Error: {}').format(msg)
 	log.error(msg)
 	if returnString:

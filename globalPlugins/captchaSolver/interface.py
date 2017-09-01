@@ -49,7 +49,7 @@ class SettingsDialog(gui.SettingsDialog):
 		_config.conf['key'] = self.key.Value
 		_config.saveConfig()
 
-def createMenuItem():
+def createSubmenu():
 	menu_tools = gui.mainFrame.sysTrayIcon.menu.FindItemByPosition(1).GetSubMenu()
 	menu_CaptchaSolver = wx.Menu()
 	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Settings...'))

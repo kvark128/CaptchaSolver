@@ -23,7 +23,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
 		if not globalVars.appArgs.secure:
-			interface.createMenuItem()
+			interface.createSubmenu()
 
 	def sendCaptcha(self, **kwargs):
 		kwargs['soft_id'] = 1665
