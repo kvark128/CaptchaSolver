@@ -1,8 +1,10 @@
+import ui
+from logHandler import log
 import addonHandler
 
 addonHandler.initTranslation()
 
-responses = {
+_errors = {
 	'OFF_SCREEN': _('Captcha off screen'),
 	'CAPTCHA_HAS_NO_LOCATION': _('Captcha has no location'),
 	'ERROR_CONNECTING_TO_SERVER': _('Error connecting to server. Please check your Internet connection'),
@@ -18,3 +20,13 @@ responses = {
 	'ERROR_BAD_DUPLICATES': _('The error appears when 100 percent recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received'),
 	'ERROR_CAPTCHAIMAGE_BLOCKED': _('This captcha can not be recognized'),
 }
+
+def errorHandler(msg, returnString=False):
+	text = _errors.get(msg)
+	if text is None:
+		text = _('Error: {}').format(msg)
+	log.error(msg)
+	if returnString:
+		return text
+	else:
+		ui.message(text)

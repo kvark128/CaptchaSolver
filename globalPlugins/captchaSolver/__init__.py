@@ -8,8 +8,7 @@ import ui
 import api
 import speech
 import controlTypes
-from logHandler import log
-from responses import responses
+from error import errorHandler
 import interface
 from rucaptcha import requestAPI
 import _config
@@ -31,7 +30,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		response = requestAPI(**kwargs)
 		speech.cancelSpeech()
 		if not response.startswith('OK|'):
-			self.errorHandler(response)
+			errorHandler(response)
 			return
 
 		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
@@ -47,21 +46,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			api.copyToClip(status.decode('utf-8')[3:])
 			ui.message(_('Captcha solved successfully! The result copied to the clipboard'))
 		else:
-			self.errorHandler(status)
+			errorHandler(status)
 
 	def balance(self):
 		balance = requestAPI(action='getbalance')
 		try:
-			ui.message(_('Balance: {balance:.2f} rubles').format(balance=float(balance)))
+			ui.message(_('Balance: {:.2f}').format(float(balance)))
 		except ValueError:
-			self.errorHandler(balance)
-
-	def errorHandler(self, msg):
-		text = responses.get(msg)
-		if text is None:
-			text = _('Error: {}').format(msg)
-		ui.message(text)
-		log.error(msg)
+			errorHandler(balance)
 
 	def terminate(self):
 		self._running = False
@@ -69,13 +61,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_startRecognition(self, gesture):
 		obj = api.getNavigatorObject()
 		if controlTypes.STATE_OFFSCREEN in obj.states:
-			self.errorHandler('OFF_SCREEN')
+			errorHandler('OFF_SCREEN')
 			return
 
 		try:
 			x, y, width, height = obj.location
 		except:
-			self.errorHandler('CAPTCHA_HAS_NO_LOCATION')
+			errorHandler('CAPTCHA_HAS_NO_LOCATION')
 			return
 
 		if _config.conf['sizeReport'] and scriptHandler.getLastScriptRepeatCount() != 1:

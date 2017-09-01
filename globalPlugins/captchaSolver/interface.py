@@ -4,6 +4,8 @@ import threading
 import addonHandler
 import gui
 import _config
+from rucaptcha import requestAPI
+from error import errorHandler
 
 addonHandler.initTranslation()
 
@@ -52,11 +54,21 @@ def createMenuItem():
 	menu_CaptchaSolver = wx.Menu()
 	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Settings...'))
 	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, showSettingsDialog, item)
+	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Account balance...'))
+	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, balanceDialog, item)
 	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Profile on rucaptcha.com'))
 	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://rucaptcha.com/auth/login'), item)
 	item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Addon webpage'))
 	gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://github.com/kvark128/captchaSolver'), item)
 	menu_tools.AppendMenu(wx.ID_ANY, _('Captcha Solver'), menu_CaptchaSolver)
+
+def balanceDialog(evt=None):
+	balance = requestAPI(action='getbalance')
+	try:
+		text = _('{:.2f} rubles').format(float(balance))
+	except ValueError:
+		text = errorHandler(balance, True)
+	gui.messageBox(text, _('Your account balance'))
 
 def showSettingsDialog(evt=None):
 	gui.mainFrame._popupSettingsDialog(SettingsDialog)
