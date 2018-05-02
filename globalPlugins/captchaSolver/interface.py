@@ -40,7 +40,6 @@ class SettingsDialog(gui.SettingsDialog):
 		self.regsense.SetFocus()
 
 	def onOk(self, event):
-		super(SettingsDialog, self).onOk(event)
 		_config.conf['regsense'] = self.regsense.Value
 		_config.conf['https'] = self.https.Value
 		_config.conf['sizeReport'] = self.sizeReport.Value
@@ -48,6 +47,7 @@ class SettingsDialog(gui.SettingsDialog):
 		_config.conf['language'] = self.language.GetSelection()
 		_config.conf['key'] = self.key.Value
 		_config.saveConfig()
+		super(SettingsDialog, self).onOk(event)
 
 def createSubmenu():
 	menu_tools = gui.mainFrame.sysTrayIcon.menu.FindItemByPosition(1).GetSubMenu()
