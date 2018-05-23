@@ -84,7 +84,7 @@ class RucaptchaRequest(threading.Thread):
 		kwargs['regsense'] = int(_config.conf['regsense'])
 		kwargs['language'] = _config.conf['language']
 		kwargs['method'] = 'base64'
-		kwargs['body'] = base64.encodestring(kwargs['body'])
+		kwargs['body'] = base64.b64encode(kwargs['body'])
 
 		status, request = self._HTTPRequest('POST', '/in.php', urlencode(kwargs))
 
