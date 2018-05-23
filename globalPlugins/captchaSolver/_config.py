@@ -10,7 +10,6 @@ fileConfigPath = os.path.join(globalVars.appArgs.configPath, 'captchaSolverSetti
 conf = {
 	'key': '',
 	'regsense': False,
-	'https': False,
 	'sizeReport': False,
 	'textInstruction': False,
 	'language': 0,
