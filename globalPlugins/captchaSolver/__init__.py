@@ -202,7 +202,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		mem.Blit(0, 0, width, height, wx.ScreenDC(), x, y)
 		image = bmp.ConvertToImage()
 		body = io.BytesIO()
-		image.SaveFile(body, wx.BITMAP_TYPE_PNG)
+		if wx.__version__ == '3.0.2.0': # Maintain compatibility with old version of WXPython
+			image.SaveStream(body, wx.BITMAP_TYPE_PNG)
+		else: # Used in WXPython 4.0
+			image.SaveFile(body, wx.BITMAP_TYPE_PNG)
 
 		wx.CallAfter(self._creator, body=body.getvalue())
 	script_startRecognition.__doc__ = _('Starts the recognition process')
