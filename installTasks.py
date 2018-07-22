@@ -7,5 +7,5 @@ addonHandler.initTranslation()
 
 def onInstall():
 	if (version_year, version_major) < (2017, 3):
-		gui.messageBox(_('CaptchaSolver incompatible with your version of NVDA. CaptchaSolver requires NVDA 2017.3 or above.'), _('Incompatible version of NVDA'), style=wx.OK | wx.ICON_ERROR)
-		raise RuntimeError('Incompatible version of NVDA')
+		gui.messageBox(_('CaptchaSolver incompatible with your NVDA version. CaptchaSolver requires NVDA 2017.3 or later.'), _('Incompatible NVDA version'), style=wx.OK | wx.ICON_ERROR)
+		raise RuntimeError('Incompatible NVDA version')
