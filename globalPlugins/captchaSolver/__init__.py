@@ -140,8 +140,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: RucaptchaRequest(self.balanceDialog, action='getbalance'), item)
 		item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Profile on rucaptcha.com'))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://rucaptcha.com/auth/login'), item)
-		item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Donate to author CaptchaSolver'))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://money.yandex.ru/to/410012293543375'), item)
 		item = menu_CaptchaSolver.Append(wx.ID_ANY, _('Addon webpage'))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile('https://github.com/kvark128/captchaSolver'), item)
 		menu_tools.AppendMenu(wx.ID_ANY, _('Captcha Solver'), menu_CaptchaSolver)
