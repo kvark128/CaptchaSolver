@@ -128,8 +128,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		if not globalVars.appArgs.secure:
-			self.createSubmenu()
+		if globalVars.appArgs.secure:
+			return
+		self.createSubmenu()
 
 	def createSubmenu(self):
 		menu_tools = gui.mainFrame.sysTrayIcon.menu.FindItemByPosition(1).GetSubMenu()
@@ -180,6 +181,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		RucaptchaRequest(self.captchaHandler, **kwargs)
 
 	def script_startRecognition(self, gesture):
+		if globalVars.appArgs.secure:
+			ui.message(_('Cannot to start recognition - NVDA in secure mode'))
+			return
+
 		obj = api.getNavigatorObject()
 		if controlTypes.STATE_OFFSCREEN in obj.states:
 			ui.message(getErrorDescription('OFF_SCREEN'))
@@ -209,9 +214,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_startRecognition.__doc__ = _('Starts the recognition process')
 
 	def script_getBalance(self, gesture):
+		if globalVars.appArgs.secure:
+			ui.message(_('Cannot get balance - NVDA in secure mode'))
+			return
+
 		RucaptchaRequest(self.balanceHandler, action='getbalance')
 	script_getBalance.__doc__ = _('Report account balance')
 
 	def script_showSettingsDialog(self, gesture):
+		if globalVars.appArgs.secure:
+			ui.message(_('Cannot show settings dialog - NVDA in secure mode'))
+			return
+
 		gui.mainFrame._popupSettingsDialog(SettingsDialog)
 	script_showSettingsDialog.__doc__ = _('Show the settings dialog')
