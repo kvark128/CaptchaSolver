@@ -171,11 +171,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def balanceDialog(self, status, request):
 		if status:
-			text = _('{:.2f} rubles').format(float(request))
+			gui.messageBox(_('{:.2f} rubles').format(float(request)), _('Your account balance'))
 		else:
-			text = self.getErrorDescription(request)
-
-		gui.messageBox(text, _('Your account balance'))
+			gui.messageBox(self.getErrorDescription(request), _('Error getting balance'), style=wx.OK | wx.ICON_ERROR)
 
 	def captchaHandler(self, status, request):
 		if not status:
