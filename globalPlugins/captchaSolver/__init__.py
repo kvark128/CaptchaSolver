@@ -44,6 +44,10 @@ class SettingsDialog(gui.SettingsDialog):
 	def makeSettings(self, sizer):
 		settingsSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=sizer)
 
+		self.graphicOnly = wx.CheckBox(self, label=_('Recognize only &graphic objects'))
+		self.graphicOnly.SetValue(_config.conf['graphicOnly'])
+		settingsSizerHelper.addItem(self.graphicOnly)
+
 		self.regsense = wx.CheckBox(self, label=_('&Case sensitive recognition'))
 		self.regsense.SetValue(_config.conf['regsense'])
 		settingsSizerHelper.addItem(self.regsense)
@@ -62,9 +66,10 @@ class SettingsDialog(gui.SettingsDialog):
 		self.key = settingsSizerHelper.addLabeledControl(_('API &key:'), wx.TextCtrl, value=_config.conf['key'])
 
 	def postInit(self):
-		self.regsense.SetFocus()
+		self.graphicOnly.SetFocus()
 
 	def onOk(self, event):
+		_config.conf['graphicOnly'] = self.graphicOnly.Value
 		_config.conf['regsense'] = self.regsense.Value
 		_config.conf['sizeReport'] = self.sizeReport.Value
 		_config.conf['textInstruction'] = self.textInstruction.Value
@@ -208,6 +213,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 
 		obj = api.getNavigatorObject()
+
+		if obj.role != controlTypes.ROLE_GRAPHIC and _config.conf['graphicOnly']:
+			ui.message(_('This object is not a graphical element'))
+			return
+
 		if controlTypes.STATE_OFFSCREEN in obj.states:
 			ui.message(self.getErrorDescription('OFF_SCREEN'))
 			return

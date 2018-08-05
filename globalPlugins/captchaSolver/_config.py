@@ -7,12 +7,14 @@ import addonHandler
 
 addonHandler.initTranslation()
 fileConfigPath = os.path.join(globalVars.appArgs.configPath, 'captchaSolverSettings.pickle')
+
 conf = {
-	'key': '',
+	'graphicOnly': True,
 	'regsense': False,
 	'sizeReport': False,
 	'textInstruction': False,
 	'language': 0,
+	'key': '',
 }
 
 try:
