@@ -22,6 +22,7 @@ import _config
 addonHandler.initTranslation()
 
 ERRORS = {
+	'NVDA_SECURE_DESKTOP': _('Action cannot be performed because NVDA running on secure desktop'),
 	'OFF_SCREEN': _('Captcha off screen'),
 	'CAPTCHA_HAS_NO_LOCATION': _('Captcha has no location'),
 	'ERROR_CONNECTING_TO_SERVER': _('Error connecting to server. Please check your Internet connection'),
@@ -209,7 +210,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_startRecognition(self, gesture):
 		if globalVars.appArgs.secure:
-			ui.message(_('Cannot to start recognition - NVDA in secure mode'))
+			ui.message(self.getErrorDescription('NVDA_SECURE_DESKTOP'))
 			return
 
 		obj = api.getNavigatorObject()
@@ -247,7 +248,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_getBalance(self, gesture):
 		if globalVars.appArgs.secure:
-			ui.message(_('Cannot get balance - NVDA in secure mode'))
+			ui.message(self.getErrorDescription('NVDA_SECURE_DESKTOP'))
 			return
 
 		RucaptchaRequest(self.balanceHandler, action='getbalance')
@@ -255,7 +256,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_showSettingsDialog(self, gesture):
 		if globalVars.appArgs.secure:
-			ui.message(_('Cannot show settings dialog - NVDA in secure mode'))
+			ui.message(self.getErrorDescription('NVDA_SECURE_DESKTOP'))
 			return
 
 		gui.mainFrame._popupSettingsDialog(SettingsDialog)
