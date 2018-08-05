@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2018-07-22 13:33+0800\n"
-"PO-Revision-Date: 2018-07-22 13:38+0800\n"
+"POT-Creation-Date: 2018-08-06 04:33+0800\n"
+"PO-Revision-Date: 2018-08-06 04:39+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -16,142 +16,38 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\\..\\..\\..\\captchaSolver\n"
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:25
-msgid "Captcha Solver Settings"
-msgstr "Настройки Captcha Solver"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:30
-msgid "&Case sensitive recognition"
-msgstr "Учитывать &регистр при распознавании"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:34
-msgid "Report image &size"
-msgstr "Сообщать &размер изображения"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:38
-msgid "Send &text instruction"
-msgstr "Отправлять &текстовую инструкцию"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:42
-msgid "Image &language:"
-msgstr "&Язык изображения:"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:42
-msgid "Undefined"
-msgstr "Не определено"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:42
-msgid "Only Cyrillic alphabet"
-msgstr "Только кириллица"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:42
-msgid "Only Latin alphabet"
-msgstr "Только латиница"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:45
-msgid "API &key:"
-msgstr "&Ключ API:"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:95
-msgid ""
-"Captcha successfully sent to the recognition. You will be notified when the "
-"result will be ready"
+msgid "Action cannot be performed because NVDA running on secure desktop"
 msgstr ""
-"Капча успешно отправлена на распознавание. Вы будете уведомлены, когда "
-"результат будет готов"
+"Действие не может быть выполнено, поскольку NVDA работает на защищённом "
+"рабочем столе"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:127
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:145
-msgid "Captcha Solver"
-msgstr "Captcha Solver"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:137
-msgid "Settings..."
-msgstr "Настройки..."
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:139
-msgid "Account balance..."
-msgstr "Баланс аккаунта..."
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:141
-msgid "Profile on rucaptcha.com"
-msgstr "Профиль на rucaptcha.com"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:143
-msgid "Addon webpage"
-msgstr "Web-страница дополнения"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:149
-msgid "{:.2f} rubles"
-msgstr "{:.2f} рублей"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:153
-msgid "Your account balance"
-msgstr "Баланс вашего аккаунта"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:161
-msgid "Captcha solved successfully! The result copied to the clipboard"
-msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:168
-msgid "Balance: {:.2f}"
-msgstr "Баланс: {:.2f}"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:172
-msgid "Instruction text (maximum 140 characters):"
-msgstr "Текст инструкции (максимум 140 символов):"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:172
-msgid "Sending text instruction"
-msgstr "Отправка текстовой инструкции"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:195
-#, python-brace-format
-msgid "Size: {0} X {1} pixels"
-msgstr "Размер: {0} на {1} пикселей"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:209
-msgid "Starts the recognition process"
-msgstr "Начать процесс распознавания"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:213
-msgid "Report account balance"
-msgstr "Сообщить баланс аккаунта"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:217
-msgid "Show the settings dialog"
-msgstr "Показать диалог настроек"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/_config.py:29
-msgid "Error saving settings"
-msgstr "Ошибка при сохранении настроек"
-
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:7
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:26
 msgid "Captcha off screen"
 msgstr "Капча вне экрана"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:8
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:27
 msgid "Captcha has no location"
 msgstr "Капча не имеет местоположения"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:9
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:28
 msgid "Error connecting to server. Please check your Internet connection"
 msgstr ""
 "Ошибка при подключении к серверу. Пожалуйста, проверьте ваше Интернет-"
 "соединение"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:10
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:29
 msgid "API key is not specified"
 msgstr "Не указан ключ API"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:11
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:30
 msgid "Used a non-existent API key"
 msgstr "Используется несуществующий ключ API"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:12
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:31
 msgid "The balance of your account is zero"
 msgstr "Баланс вашего аккаунта нулевой"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:13
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:32
 msgid ""
 "The current recognition rate is higher than the maximum set in the settings "
 "of Your account. Either on the server queue builds up and employees do not "
@@ -161,15 +57,15 @@ msgstr ""
 "настройках Вашего аккаунта. Либо на сервере скопилась очередь и работники не "
 "успевают её разобрать, повторите отправку капчи через 5 секунд"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:14
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:33
 msgid "Size of the captcha is less than 100 bytes"
 msgstr "Размер капчи составляет менее 100 байт"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:15
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:34
 msgid "Size of the captcha more than 100 KB"
 msgstr "Размер капчи больше чем 100 килобайт"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:16
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:35
 msgid ""
 "In Your account you have configured restrictions based on IP from which you "
 "can make requests. And the IP from which the request is not included in the "
@@ -178,7 +74,7 @@ msgstr ""
 "В Вашем аккаунте настроено ограничения по IP с которых можно делать запросы. "
 "И IP, с которого пришёл данный запрос не входит в список разрешённых"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:17
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:36
 msgid ""
 "IP address from which the request is blocked because of frequent requests "
 "with various incorrect API keys. The lock is released in an hour"
@@ -186,7 +82,7 @@ msgstr ""
 "IP-адрес, с которого пришёл запрос заблокирован из-за частых обращений с "
 "различными неверными ключами API. Блокировка снимается через час"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:18
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:37
 msgid ""
 "Captcha could not solve 3 different employee. Money for this image come back "
 "to balance"
@@ -194,7 +90,7 @@ msgstr ""
 "Капчу не смогли решить 3 разных работника. Деньги за это изображение "
 "возвращаются обратно на баланс"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:19
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:38
 msgid ""
 "The error appears when 100 percent recognition. Has been used the maximum "
 "number of attempts, but the required number of identical answers has not "
@@ -204,14 +100,137 @@ msgstr ""
 "использовано максимальное количество попыток, но необходимое количество "
 "одинаковых ответов не было набрано"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:20
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:39
 msgid "This captcha can not be recognized"
 msgstr "Эту капчу невозможно распознать"
 
-#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/errors.py:26
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:43
+msgid "Captcha Solver Settings"
+msgstr "Настройки Captcha Solver"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:48
+msgid "Recognize only &graphic objects"
+msgstr "Распознавать только &графические объекты"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:52
+msgid "&Case sensitive recognition"
+msgstr "Учитывать &регистр при распознавании"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:56
+msgid "Report image &size"
+msgstr "Сообщать &размер изображения"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:60
+msgid "Send &text instruction"
+msgstr "Отправлять &текстовую инструкцию"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:64
+msgid "Image &language:"
+msgstr "&Язык изображения:"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:64
+msgid "Undefined"
+msgstr "Не определено"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:64
+msgid "Only Cyrillic alphabet"
+msgstr "Только кириллица"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:64
+msgid "Only Latin alphabet"
+msgstr "Только латиница"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:67
+msgid "API &key:"
+msgstr "&Ключ API:"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:118
+msgid ""
+"Captcha successfully sent to the recognition. You will be notified when the "
+"result will be ready"
+msgstr ""
+"Капча успешно отправлена на распознавание. Вы будете уведомлены, когда "
+"результат будет готов"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:150
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:169
+msgid "Captcha Solver"
+msgstr "Captcha Solver"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:161
+msgid "Settings..."
+msgstr "Настройки..."
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:163
+msgid "Account balance..."
+msgstr "Баланс аккаунта..."
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:165
+msgid "Profile on rucaptcha.com"
+msgstr "Профиль на rucaptcha.com"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:167
+msgid "Addon webpage"
+msgstr "Web-страница дополнения"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:174
 msgid "Error: {}"
 msgstr "Ошибка: {}"
 
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:180
+msgid "{:.2f} rubles"
+msgstr "{:.2f} рублей"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:180
+msgid "Your account balance"
+msgstr "Баланс вашего аккаунта"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:182
+msgid "Error getting balance"
+msgstr "Ошибка при получении баланса"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:190
+msgid "Captcha solved successfully! The result copied to the clipboard"
+msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:197
+msgid "Balance: {:.2f}"
+msgstr "Баланс: {:.2f}"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:201
+msgid "Instruction text (maximum 140 characters):"
+msgstr "Текст инструкции (максимум 140 символов):"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:201
+msgid "Sending text instruction"
+msgstr "Отправка текстовой инструкции"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:219
+msgid "This object is not a graphical element"
+msgstr "Этот объект не является графическим элементом"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:233
+#, python-brace-format
+msgid "Size: {0} X {1} pixels"
+msgstr "Размер: {0} на {1} пикселей"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:247
+msgid "Starts the recognition process"
+msgstr "Начать процесс распознавания"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:255
+msgid "Report account balance"
+msgstr "Сообщить баланс аккаунта"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/__init__.py:263
+msgid "Show the settings dialog"
+msgstr "Показать диалог настроек"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver/_config.py:31
+msgid "Error saving settings"
+msgstr "Ошибка при сохранении настроек"
+
+#: ..\..\..\..\captchaSolver/globalPlugins/installTasks.py:10
 #: ..\..\..\..\captchaSolver/installTasks.py:10
 msgid ""
 "CaptchaSolver incompatible with your NVDA version. CaptchaSolver requires "
@@ -220,6 +239,7 @@ msgstr ""
 "Дополнение CaptchaSolver несовместимо с вашей версией NVDA. Для "
 "CaptchaSolver требуется NVDA 2017.3 или более поздняя версия."
 
+#: ..\..\..\..\captchaSolver/globalPlugins/installTasks.py:10
 #: ..\..\..\..\captchaSolver/installTasks.py:10
 msgid "Incompatible NVDA version"
 msgstr "Несовместимая версия NVDA"
@@ -253,9 +273,6 @@ msgstr "Несовместимая версия NVDA"
 #~ msgstr ""
 #~ "Не удалось получить баланс аккаунта. Пожалуйста, проверьте ваше интернет-"
 #~ "соединение"
-
-#~ msgid "This is not a captcha!"
-#~ msgstr "Это не капча!"
 
 #~ msgid "Recognition register has the significance"
 #~ msgstr "Регистр распознавания имеет значение"
