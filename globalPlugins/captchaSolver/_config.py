@@ -20,12 +20,12 @@ conf = {
 try:
 	with open(fileConfigPath, 'rb') as fileConfig:
 		conf.update(cPickle.load(fileConfig))
-except:
+except Exception:
 	pass
 
 def saveConfig():
 	try:
 		with open(fileConfigPath, 'wb') as fileConfig:
 			cPickle.dump(conf, fileConfig, cPickle.HIGHEST_PROTOCOL)
-	except (IOError, OSError), e:
+	except (IOError, OSError) as e:
 		gui.messageBox(e.strerror, _('Error saving settings'), style=wx.OK | wx.ICON_ERROR)
