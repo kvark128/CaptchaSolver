@@ -94,7 +94,7 @@ class RucaptchaRequest(threading.Thread):
 	def run(self):
 		status, request = self._request(**self.__kwargs)
 		self.__connection.close()
-		queueHandler.queueFunction(queueHandler.eventQueue, self.__callback, status=status, request=request)
+		queueHandler.queueFunction(queueHandler.eventQueue, wx.CallAfter, self.__callback, status=status, request=request)
 
 	def _request(self, **kwargs):
 		kwargs['json'] = 1
