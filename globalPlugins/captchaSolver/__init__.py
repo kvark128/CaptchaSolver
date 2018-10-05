@@ -12,6 +12,7 @@ import gui
 from logHandler import log
 import scriptHandler
 import addonHandler
+import queueHandler
 import ui
 import globalVars
 import api
@@ -93,7 +94,7 @@ class RucaptchaRequest(threading.Thread):
 	def run(self):
 		status, request = self._request(**self.__kwargs)
 		self.__connection.close()
-		self.__callback(status=status, request=request)
+		queueHandler.queueFunction(queueHandler.eventQueue, self.__callback, status=status, request=request)
 
 	def _request(self, **kwargs):
 		kwargs['json'] = 1
@@ -114,8 +115,8 @@ class RucaptchaRequest(threading.Thread):
 		if not status:
 			return status, request
 
-		speech.cancelSpeech()
-		ui.message(_('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
+		queueHandler.queueFunction(queueHandler.eventQueue, speech.cancelSpeech)
+		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, _('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
 
 		while True:
 			time.sleep(2)
