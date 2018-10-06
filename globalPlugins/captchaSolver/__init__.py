@@ -23,9 +23,6 @@ import _config
 addonHandler.initTranslation()
 
 ERRORS = {
-	'NVDA_SECURE_DESKTOP': _('Action cannot be performed because NVDA running on secure desktop'),
-	'OFF_SCREEN': _('Captcha off screen'),
-	'CAPTCHA_HAS_NO_LOCATION': _('Captcha has no location'),
 	'ERROR_CONNECTING_TO_SERVER': _('Error connecting to server. Please check your Internet connection'),
 	'ERROR_WRONG_USER_KEY': _('API key is not specified'),
 	'ERROR_KEY_DOES_NOT_EXIST': _('Used a non-existent API key'),
@@ -170,11 +167,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		menu_tools.AppendMenu(wx.ID_ANY, _('Captcha Solver'), menu_CaptchaSolver)
 
 	def getErrorDescription(self, error):
-		text = ERRORS.get(error.message)
-		if not isinstance(text, basestring):
-			text = _('Error: {}').format(error)
-		log.error(error)
-		return text
+		description = ERRORS.get(error.message)
+		if not isinstance(description, basestring):
+			description = _('Unknown CaptchaSolver error. For details, see the NVDA log')
+		log.error(u'{0}: {1}'.format(type(error).__name__, error))
+		return description
 
 	def balanceDialog(self, request):
 		if isinstance(request, Exception):
@@ -212,7 +209,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_startRecognition(self, gesture):
 		if globalVars.appArgs.secure:
-			ui.message(self.getErrorDescription('NVDA_SECURE_DESKTOP'))
+			ui.message(_('Action cannot be performed because NVDA running on secure desktop'))
 			return
 
 		obj = api.getNavigatorObject()
@@ -222,13 +219,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 
 		if controlTypes.STATE_OFFSCREEN in obj.states:
-			ui.message(self.getErrorDescription('OFF_SCREEN'))
+			ui.message(_('Captcha off screen'))
 			return
 
 		try:
 			x, y, width, height = obj.location
-		except:
-			ui.message(self.getErrorDescription('CAPTCHA_HAS_NO_LOCATION'))
+		except Exception:
+			ui.message(_('Captcha has no location'))
 			return
 
 		if _config.conf['sizeReport'] and scriptHandler.getLastScriptRepeatCount() != 1:
@@ -250,7 +247,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_getBalance(self, gesture):
 		if globalVars.appArgs.secure:
-			ui.message(self.getErrorDescription('NVDA_SECURE_DESKTOP'))
+			ui.message(_('Action cannot be performed because NVDA running on secure desktop'))
 			return
 
 		RucaptchaRequest(self.balanceHandler, action='getbalance')
@@ -258,7 +255,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_showSettingsDialog(self, gesture):
 		if globalVars.appArgs.secure:
-			ui.message(self.getErrorDescription('NVDA_SECURE_DESKTOP'))
+			ui.message(_('Action cannot be performed because NVDA running on secure desktop'))
 			return
 
 		gui.mainFrame._popupSettingsDialog(SettingsDialog)
