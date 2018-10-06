@@ -80,6 +80,8 @@ class SettingsDialog(gui.SettingsDialog):
 		_config.saveConfig()
 		super(SettingsDialog, self).onOk(event)
 
+class RucaptchaError(Exception): pass
+
 class RucaptchaRequest(threading.Thread):
 
 	def __init__(self, callback, **kwargs):
@@ -94,7 +96,7 @@ class RucaptchaRequest(threading.Thread):
 	def run(self):
 		try:
 			request = self._request(**self.__kwargs)
-		except (httplib.socket.gaierror, httplib.ssl.SSLError, httplib.socket.timeout) as e:
+		except (httplib.socket.gaierror, httplib.ssl.SSLError, httplib.socket.timeout):
 			request = RuntimeError('ERROR_CONNECTING_TO_SERVER')
 		except Exception as e:
 			request = e
@@ -125,8 +127,8 @@ class RucaptchaRequest(threading.Thread):
 			time.sleep(2)
 			try:
 				return self._request(action='get', id=captchaID)
-			except RuntimeError as e:
-				if e.message == 'CAPCHA_NOT_READY': continue
+			except RucaptchaError as e:
+				if e.message != 'CAPCHA_NOT_READY': raise e
 
 	def _HTTPRequest(self, method, path, body):
 		headers = {'Host': self.__host}
@@ -142,7 +144,7 @@ class RucaptchaRequest(threading.Thread):
 		request = responseDict.get('request')
 
 		if responseDict.get('status') != 1:
-			raise RuntimeError(request)
+			raise RucaptchaError(request)
 		return request
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
