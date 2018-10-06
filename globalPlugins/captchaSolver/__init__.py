@@ -92,9 +92,15 @@ class RucaptchaRequest(threading.Thread):
 		self.start()
 
 	def run(self):
-		status, request = self._request(**self.__kwargs)
-		self.__connection.close()
-		wx.CallAfter(self.__callback, status=status, request=request)
+		try:
+			request = self._request(**self.__kwargs)
+		except (httplib.socket.gaierror, httplib.ssl.SSLError, httplib.socket.timeout) as e:
+			request = RuntimeError('ERROR_CONNECTING_TO_SERVER')
+		except Exception as e:
+			request = e
+		finally:
+			self.__connection.close()
+			wx.CallAfter(self.__callback, request)
 
 	def _request(self, **kwargs):
 		kwargs['json'] = 1
@@ -110,42 +116,34 @@ class RucaptchaRequest(threading.Thread):
 		kwargs['method'] = 'base64'
 		kwargs['body'] = base64.b64encode(kwargs['body'])
 
-		status, request = self._HTTPRequest('POST', '/in.php', urlencode(kwargs))
-
-		if not status:
-			return status, request
+		captchaID = self._HTTPRequest('POST', '/in.php', urlencode(kwargs))
 
 		queueHandler.queueFunction(queueHandler.eventQueue, speech.cancelSpeech)
 		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, _('Captcha successfully sent to the recognition. You will be notified when the result will be ready'))
 
 		while True:
 			time.sleep(2)
-			status, result = self._request(action='get', id=request)
-			if status or result != 'CAPCHA_NOT_READY':
-				return status, result
+			try:
+				return self._request(action='get', id=captchaID)
+			except RuntimeError as e:
+				if e.message == 'CAPCHA_NOT_READY': continue
 
 	def _HTTPRequest(self, method, path, body):
 		headers = {'Host': self.__host}
 		if body:
 			headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-		try:
-			self.__connection.request(method, path, body, headers)
-			response = self.__connection.getresponse()
-		except (httplib.socket.gaierror, httplib.ssl.SSLError):
-			return False, 'ERROR_CONNECTING_TO_SERVER'
-
+		self.__connection.request(method, path, body, headers)
+		response = self.__connection.getresponse()
 		if response.status != httplib.OK:
-			return False, '{} {}'.format(response.status, response.reason)
+			raise RuntimeError('{} {}'.format(response.status, response.reason))
 
-		try:
-			responseDict = json.load(response)
-		except Exception as e:
-			return False, e
+		responseDict = json.load(response)
+		request = responseDict.get('request')
 
-		status = responseDict.get('status', 0)
-		request = responseDict.get('request', None)
-		return bool(status), request
+		if responseDict.get('status') != 1:
+			raise RuntimeError(request)
+		return request
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _('Captcha Solver')
@@ -170,28 +168,29 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		menu_tools.AppendMenu(wx.ID_ANY, _('Captcha Solver'), menu_CaptchaSolver)
 
 	def getErrorDescription(self, error):
-		text = ERRORS.get(error)
+		text = ERRORS.get(error.message)
 		if not isinstance(text, basestring):
 			text = _('Error: {}').format(error)
 		log.error(error)
 		return text
 
-	def balanceDialog(self, status, request):
-		if status:
-			gui.messageBox(_('{:.2f} rubles').format(float(request)), _('Your account balance'))
-		else:
+	def balanceDialog(self, request):
+		if isinstance(request, Exception):
 			gui.messageBox(self.getErrorDescription(request), _('Error getting balance'), style=wx.OK | wx.ICON_ERROR)
+			return
 
-	def captchaHandler(self, status, request):
-		if not status:
+		gui.messageBox(_('{:.2f} rubles').format(float(request)), _('Your account balance'))
+
+	def captchaHandler(self, request):
+		if isinstance(request, Exception):
 			ui.message(self.getErrorDescription(request))
 			return
 
 		api.copyToClip(request)
 		ui.message(_('Captcha solved successfully! The result copied to the clipboard'))
 
-	def balanceHandler(self, status, request):
-		if not status:
+	def balanceHandler(self, request):
+		if isinstance(request, Exception):
 			ui.message(self.getErrorDescription(request))
 			return
 
