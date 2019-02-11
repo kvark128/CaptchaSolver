@@ -86,7 +86,7 @@ class RucaptchaRequest(threading.Thread):
 		self.__callback = callback
 		self.__kwargs = kwargs
 		self.__host = 'rucaptcha.com'
-		self.__connection = httplib.HTTPSConnection(self.__host, timeout=20)
+		self.__connection = httplib.HTTPSConnection(self.__host)
 		self.daemon = True
 		self.start()
 
