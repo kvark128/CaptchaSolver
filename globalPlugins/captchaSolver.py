@@ -22,6 +22,11 @@ import controlTypes
 
 addonHandler.initTranslation()
 
+MAX_INSTRUCTION_LENGTH = 140 # Maximum text length of instruction for the worker
+FILE_CONFIG_PATH = os.path.join(globalVars.appArgs.configPath, "captchaSolverSettings.pickle")
+RUCAPTCHA_PROFILE_URL = "https://rucaptcha.com/auth/login"
+ADDON_URL = addonHandler.getCodeAddon().manifest.get("url")
+
 ERRORS = {
 	"ERROR_CONNECTING_TO_SERVER": _("Error connecting to server. Please check your Internet connection"),
 	"ERROR_WRONG_USER_KEY": _("API key is not specified"),
@@ -36,8 +41,6 @@ ERRORS = {
 	"ERROR_BAD_DUPLICATES": _("The error appears when 100 percent recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received"),
 	"ERROR_CAPTCHAIMAGE_BLOCKED": _("This captcha can not be recognized"),
 }
-
-FILE_CONFIG_PATH = os.path.join(globalVars.appArgs.configPath, "captchaSolverSettings.pickle")
 
 conf = {
 	"graphicOnly": True,
@@ -79,12 +82,12 @@ class SettingsDialog(gui.SettingsDialog):
 		self.graphicOnly.SetFocus()
 
 	def onOk(self, event):
-		conf["graphicOnly"] = self.graphicOnly.Value
-		conf["regsense"] = self.regsense.Value
-		conf["sizeReport"] = self.sizeReport.Value
-		conf["textInstruction"] = self.textInstruction.Value
+		conf["graphicOnly"] = self.graphicOnly.IsChecked()
+		conf["regsense"] = self.regsense.IsChecked()
+		conf["sizeReport"] = self.sizeReport.IsChecked()
+		conf["textInstruction"] = self.textInstruction.IsChecked()
 		conf["language"] = self.language.GetSelection()
-		conf["key"] = self.key.Value
+		conf["key"] = self.key.GetValue()
 
 		# Saves global conf into config file
 		try:
@@ -127,7 +130,7 @@ class RucaptchaRequest(threading.Thread):
 			path = "/res.php?" + urlencode(kwargs)
 			return self._HTTPRequest("GET", path, None)
 
-		kwargs["soft_id"] = 1665
+		kwargs["soft_id"] = 1665 # ID of CaptchaSolver from rucaptcha.com. Used for statistics
 		kwargs["regsense"] = int(conf["regsense"])
 		kwargs["language"] = conf["language"]
 		kwargs["method"] = "base64"
@@ -167,8 +170,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		if globalVars.appArgs.secure:
-			return
+		if globalVars.appArgs.secure: return
 
 		# Updates global conf from config file
 		try:
@@ -177,20 +179,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except Exception:
 			pass
 
-		self.createSubmenu()
-
-	def createSubmenu(self):
-		menu_tools = gui.mainFrame.sysTrayIcon.menu.FindItemByPosition(1).GetSubMenu()
+		# Creates submenu of addon
 		menu_CaptchaSolver = wx.Menu()
 		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Settings..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: gui.mainFrame._popupSettingsDialog(SettingsDialog), item)
 		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Account balance..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: RucaptchaRequest(self.balanceDialog, action="getbalance"), item)
 		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Profile on rucaptcha.com"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile("https://rucaptcha.com/auth/login"), item)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile(RUCAPTCHA_PROFILE_URL), item)
 		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Addon webpage"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile("https://github.com/kvark128/captchaSolver"), item)
-		menu_tools.AppendMenu(wx.ID_ANY, _("Captcha Solver"), menu_CaptchaSolver)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile(ADDON_URL), item)
+
+		gui.mainFrame.sysTrayIcon.toolsMenu.AppendMenu(wx.ID_ANY, _("Captcha Solver"), menu_CaptchaSolver)
 
 	def getErrorDescription(self, error):
 		description = ERRORS.get(error.message)
@@ -223,14 +223,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def _creator(self, **kwargs):
 		if conf["textInstruction"]:
-			dlg = wx.TextEntryDialog(gui.mainFrame, _("Instruction text (maximum 140 characters):"), _("Sending text instruction"))
+			dlg = wx.TextEntryDialog(gui.mainFrame, _("Instruction text (maximum {length} characters):").format(length=MAX_INSTRUCTION_LENGTH), _("Sending text instruction"))
+			dlg.SetMaxLength(MAX_INSTRUCTION_LENGTH)
 			gui.mainFrame.prePopup()
 			status = dlg.ShowModal()
 			gui.mainFrame.postPopup()
 			textInstruction = dlg.GetValue()
 			dlg.Destroy()
 			if status != wx.ID_OK: return
-			kwargs["textinstructions"] = textInstruction[:140].encode("utf-8")
+			kwargs["textinstructions"] = textInstruction.encode("utf-8")
 		RucaptchaRequest(self.captchaHandler, **kwargs)
 
 	def script_startRecognition(self, gesture):
