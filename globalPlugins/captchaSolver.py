@@ -51,6 +51,15 @@ conf = {
 	"key": "",
 }
 
+# Decorator to lock the scripts on the secure desktop
+def secureScript(script):
+	def wrapper(self, gesture):
+		if globalVars.appArgs.secure:
+			ui.message(_("Action cannot be performed because NVDA running on secure desktop"))
+		else:
+			script(self, gesture)
+	return wrapper
+
 class SettingsDialog(gui.SettingsDialog):
 	title = _("Captcha Solver Settings")
 
@@ -234,11 +243,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			kwargs["textinstructions"] = textInstruction.encode("utf-8")
 		RucaptchaRequest(self.captchaHandler, **kwargs)
 
+	@secureScript
 	def script_startRecognition(self, gesture):
-		if globalVars.appArgs.secure:
-			ui.message(_("Action cannot be performed because NVDA running on secure desktop"))
-			return
-
 		obj = api.getNavigatorObject()
 
 		if obj.role != controlTypes.ROLE_GRAPHIC and conf["graphicOnly"]:
@@ -269,18 +275,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.CallAfter(self._creator, body=body.getvalue())
 	script_startRecognition.__doc__ = _("Starts the recognition process")
 
+	@secureScript
 	def script_getBalance(self, gesture):
-		if globalVars.appArgs.secure:
-			ui.message(_("Action cannot be performed because NVDA running on secure desktop"))
-			return
-
 		RucaptchaRequest(self.balanceHandler, action="getbalance")
 	script_getBalance.__doc__ = _("Report account balance")
 
+	@secureScript
 	def script_showSettingsDialog(self, gesture):
-		if globalVars.appArgs.secure:
-			ui.message(_("Action cannot be performed because NVDA running on secure desktop"))
-			return
-
 		gui.mainFrame._popupSettingsDialog(SettingsDialog)
 	script_showSettingsDialog.__doc__ = _("Show the settings dialog")
