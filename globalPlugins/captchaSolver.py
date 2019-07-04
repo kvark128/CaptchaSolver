@@ -1,12 +1,13 @@
 import threading
-import cPickle
 import os
 import json
 import base64
 import io
-import httplib
 import time
-from urllib import urlencode
+from six.moves import cPickle
+from six import string_types
+from six.moves import http_client as httplib
+from six.moves.urllib_parse import urlencode
 import globalPluginHandler
 import wx
 import gui
@@ -202,8 +203,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.toolsMenu.AppendMenu(wx.ID_ANY, _("Captcha Solver"), menu_CaptchaSolver)
 
 	def getErrorDescription(self, error):
-		description = ERRORS.get(error.message)
-		if not isinstance(description, basestring):
+		description = ERRORS.get(str(error))
+		if not isinstance(description, string_types):
 			description = _("Unknown CaptchaSolver error. For details, see the NVDA log")
 		log.error(u"{0}: {1}".format(type(error).__name__, error))
 		return description
