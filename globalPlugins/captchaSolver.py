@@ -4,10 +4,12 @@ import json
 import base64
 import io
 import time
+
 from six.moves import cPickle
 from six import string_types
 from six.moves import http_client as httplib
 from six.moves.urllib_parse import urlencode
+
 import globalPluginHandler
 import wx
 import gui
@@ -27,6 +29,7 @@ MAX_INSTRUCTION_LENGTH = 140 # Maximum text length of instruction for the worker
 FILE_CONFIG_PATH = os.path.join(globalVars.appArgs.configPath, "captchaSolverSettings.pickle")
 RUCAPTCHA_PROFILE_URL = "https://rucaptcha.com/auth/login"
 ADDON_URL = addonHandler.getCodeAddon().manifest.get("url")
+CAPCHA_NOT_READY_STATUS = "CAPCHA_NOT_READY"
 
 ERRORS = {
 	"ERROR_CONNECTING_TO_SERVER": _("Error connecting to server. Please check your Internet connection"),
@@ -156,7 +159,7 @@ class RucaptchaRequest(threading.Thread):
 			try:
 				return self._request(action="get", id=captchaID)
 			except RucaptchaError as e:
-				if e.message != "CAPCHA_NOT_READY": raise e
+				if str(e) != CAPCHA_NOT_READY_STATUS: raise e
 
 	def _HTTPRequest(self, method, path, body):
 		headers = {"Host": self.__host}
