@@ -30,11 +30,8 @@ FILE_CONFIG_PATH = os.path.join(globalVars.appArgs.configPath, "captchaSolverSet
 RUCAPTCHA_PROFILE_URL = "https://rucaptcha.com/auth/login"
 ADDON_URL = addonHandler.getCodeAddon().manifest.get("url")
 CAPCHA_NOT_READY_STATUS = "CAPCHA_NOT_READY"
-ERROR_UNEXPECTED = "ERROR_UNEXPECTED"
 
 ERRORS = {
-	"ERROR_UNEXPECTED": _("Unexpected CaptchaSolver error. For details, see the NVDA log"),
-	"ERROR_CONNECTING_TO_SERVER": _("Error connecting to server. Please check your Internet connection"),
 	"ERROR_WRONG_USER_KEY": _("API key is not specified"),
 	"ERROR_KEY_DOES_NOT_EXIST": _("Used a non-existent API key"),
 	"ERROR_ZERO_BALANCE": _("The balance of your account is zero"),
@@ -130,11 +127,11 @@ class RucaptchaRequest(threading.Thread):
 		resp = err = None
 		try:
 			resp = self._request(**self._kwargs)
-		except (httplib.socket.gaierror, httplib.ssl.SSLError, httplib.socket.timeout):
-			err = ERRORS["ERROR_CONNECTING_TO_SERVER"]
+		except (IOError, OSError):
+			err = _("Error connecting to server. Please check your Internet connection")
 			log.exception()
 		except Exception as e:
-			err = ERRORS.get(str(e), ERRORS[ERROR_UNEXPECTED])
+			err = ERRORS.get(str(e), _("Unexpected CaptchaSolver error. For details, see the NVDA log"))
 			log.exception()
 		finally:
 			self._connection.close()
