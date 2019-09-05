@@ -6,7 +6,6 @@ import io
 import time
 
 from six.moves import cPickle
-from six import string_types
 from six.moves import http_client as httplib
 from six.moves.urllib_parse import urlencode
 
@@ -25,13 +24,16 @@ import controlTypes
 
 addonHandler.initTranslation()
 
+# Constants
 MAX_INSTRUCTION_LENGTH = 140 # Maximum text length of instruction for the worker
 FILE_CONFIG_PATH = os.path.join(globalVars.appArgs.configPath, "captchaSolverSettings.pickle")
 RUCAPTCHA_PROFILE_URL = "https://rucaptcha.com/auth/login"
 ADDON_URL = addonHandler.getCodeAddon().manifest.get("url")
 CAPCHA_NOT_READY_STATUS = "CAPCHA_NOT_READY"
+ERROR_UNEXPECTED = "ERROR_UNEXPECTED"
 
 ERRORS = {
+	"ERROR_UNEXPECTED": _("Unexpected CaptchaSolver error. For details, see the NVDA log"),
 	"ERROR_CONNECTING_TO_SERVER": _("Error connecting to server. Please check your Internet connection"),
 	"ERROR_WRONG_USER_KEY": _("API key is not specified"),
 	"ERROR_KEY_DOES_NOT_EXIST": _("Used a non-existent API key"),
@@ -117,23 +119,26 @@ class RucaptchaRequest(threading.Thread):
 
 	def __init__(self, callback, **kwargs):
 		super(RucaptchaRequest, self).__init__()
-		self.__callback = callback
-		self.__kwargs = kwargs
-		self.__host = "rucaptcha.com"
-		self.__connection = httplib.HTTPSConnection(self.__host)
+		self._callback = callback
+		self._kwargs = kwargs
+		self._host = "rucaptcha.com"
+		self._connection = httplib.HTTPSConnection(self._host)
 		self.daemon = True
 		self.start()
 
 	def run(self):
+		resp = err = None
 		try:
-			request = self._request(**self.__kwargs)
+			resp = self._request(**self._kwargs)
 		except (httplib.socket.gaierror, httplib.ssl.SSLError, httplib.socket.timeout):
-			request = RuntimeError("ERROR_CONNECTING_TO_SERVER")
+			err = ERRORS["ERROR_CONNECTING_TO_SERVER"]
+			log.exception()
 		except Exception as e:
-			request = e
+			err = ERRORS.get(str(e), ERRORS[ERROR_UNEXPECTED])
+			log.exception()
 		finally:
-			self.__connection.close()
-			wx.CallAfter(self.__callback, request)
+			self._connection.close()
+			wx.CallAfter(self._callback, resp, err)
 
 	def _request(self, **kwargs):
 		kwargs["json"] = 1
@@ -162,12 +167,12 @@ class RucaptchaRequest(threading.Thread):
 				if str(e) != CAPCHA_NOT_READY_STATUS: raise e
 
 	def _HTTPRequest(self, method, path, body):
-		headers = {"Host": self.__host}
+		headers = {"Host": self._host}
 		if body:
 			headers["Content-Type"] = "application/x-www-form-urlencoded"
 
-		self.__connection.request(method, path, body, headers)
-		response = self.__connection.getresponse()
+		self._connection.request(method, path, body, headers)
+		response = self._connection.getresponse()
 		if response.status != httplib.OK:
 			raise RuntimeError("{} {}".format(response.status, response.reason))
 
@@ -205,34 +210,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		gui.mainFrame.sysTrayIcon.toolsMenu.AppendMenu(wx.ID_ANY, _("Captcha Solver"), menu_CaptchaSolver)
 
-	def getErrorDescription(self, error):
-		description = ERRORS.get(str(error))
-		if not isinstance(description, string_types):
-			description = _("Unknown CaptchaSolver error. For details, see the NVDA log")
-		log.error(u"{0}: {1}".format(type(error).__name__, error))
-		return description
-
-	def balanceDialog(self, request):
-		if isinstance(request, Exception):
-			gui.messageBox(self.getErrorDescription(request), _("Error getting balance"), style=wx.OK | wx.ICON_ERROR)
+	def balanceDialog(self, resp, err):
+		if err is not None:
+			gui.messageBox(err, _("Error getting balance"), style=wx.OK | wx.ICON_ERROR)
 			return
 
-		gui.messageBox(_("{:.2f} rubles").format(float(request)), _("Your account balance"))
+		gui.messageBox(_("{:.2f} rubles").format(float(resp)), _("Your account balance"))
 
-	def captchaHandler(self, request):
-		if isinstance(request, Exception):
-			ui.message(self.getErrorDescription(request))
+	def captchaHandler(self, resp, err):
+		if err is not None:
+			ui.message(err)
 			return
 
-		api.copyToClip(request)
+		api.copyToClip(resp)
 		ui.message(_("Captcha solved successfully! The result copied to the clipboard"))
 
-	def balanceHandler(self, request):
-		if isinstance(request, Exception):
-			ui.message(self.getErrorDescription(request))
+	def balanceHandler(self, resp, err):
+		if err is not None:
+			ui.message(err)
 			return
 
-		ui.message(_("Balance: {:.2f}").format(float(request)))
+		ui.message(_("Balance: {:.2f}").format(float(resp)))
 
 	def _creator(self, **kwargs):
 		if conf["textInstruction"]:
