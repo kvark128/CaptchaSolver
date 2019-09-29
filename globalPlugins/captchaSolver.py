@@ -205,7 +205,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Addon webpage"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile(ADDON_URL), item)
 
-		gui.mainFrame.sysTrayIcon.toolsMenu.AppendMenu(wx.ID_ANY, _("Captcha Solver"), menu_CaptchaSolver)
+		gui.mainFrame.sysTrayIcon.toolsMenu.AppendSubMenu(menu_CaptchaSolver, _("Captcha Solver"))
 
 	def balanceDialog(self, resp, err):
 		if err is not None:
