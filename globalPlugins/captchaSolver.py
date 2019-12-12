@@ -264,7 +264,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("Size: {0} X {1} pixels").format(width, height))
 			return
 
-		bmp = wx.EmptyBitmap(width, height)
+		bmp = wx.Bitmap(width, height)
 		mem = wx.MemoryDC(bmp)
 		mem.Blit(0, 0, width, height, wx.ScreenDC(), x, y)
 		image = bmp.ConvertToImage()
