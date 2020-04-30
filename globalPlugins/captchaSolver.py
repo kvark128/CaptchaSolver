@@ -4,10 +4,9 @@ import json
 import base64
 import io
 import time
-
-from six.moves import cPickle
-from six.moves import http_client as httplib
-from six.moves.urllib_parse import urlencode
+import pickle
+import http.client
+from urllib.parse import urlencode
 
 import globalPluginHandler
 import wx
@@ -104,7 +103,7 @@ class SettingsDialog(gui.SettingsDialog):
 		# Saves global conf into config file
 		try:
 			with open(FILE_CONFIG_PATH, "wb") as fileConfig:
-				cPickle.dump(conf, fileConfig, cPickle.HIGHEST_PROTOCOL)
+				pickle.dump(conf, fileConfig, pickle.HIGHEST_PROTOCOL)
 		except (IOError, OSError) as e:
 			gui.messageBox(e.strerror, _("Error saving settings"), style=wx.OK | wx.ICON_ERROR)
 
@@ -119,7 +118,7 @@ class RucaptchaRequest(threading.Thread):
 		self._callback = callback
 		self._kwargs = kwargs
 		self._host = "rucaptcha.com"
-		self._connection = httplib.HTTPSConnection(self._host)
+		self._connection = http.client.HTTPSConnection(self._host)
 		self.daemon = True
 		self.start()
 
@@ -170,7 +169,7 @@ class RucaptchaRequest(threading.Thread):
 
 		self._connection.request(method, path, body, headers)
 		response = self._connection.getresponse()
-		if response.status != httplib.OK:
+		if response.status != http.client.OK:
 			raise RuntimeError("{} {}".format(response.status, response.reason))
 
 		responseDict = json.load(response)
@@ -190,7 +189,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Updates global conf from config file
 		try:
 			with open(FILE_CONFIG_PATH, "rb") as fileConfig:
-				conf.update(cPickle.load(fileConfig))
+				conf.update(pickle.load(fileConfig))
 		except Exception:
 			pass
 
