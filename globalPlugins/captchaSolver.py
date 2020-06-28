@@ -194,21 +194,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			pass
 
 		# Creates submenu of addon
-		menu_CaptchaSolver = wx.Menu()
-		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Settings..."))
+		captchaSolver_menu = wx.Menu()
+		item = captchaSolver_menu.Append(wx.ID_ANY, _("Settings..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: gui.mainFrame._popupSettingsDialog(SettingsDialog), item)
-		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Account balance..."))
+		item = captchaSolver_menu.Append(wx.ID_ANY, _("Account balance..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: RucaptchaRequest(self.balanceDialog, action="getbalance"), item)
-		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Profile on rucaptcha.com"))
+		item = captchaSolver_menu.Append(wx.ID_ANY, _("Profile on rucaptcha.com"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile(RUCAPTCHA_PROFILE_URL), item)
-		item = menu_CaptchaSolver.Append(wx.ID_ANY, _("Addon webpage"))
+		item = captchaSolver_menu.Append(wx.ID_ANY, _("Addon webpage"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile(ADDON_URL), item)
-
-		self.menu_CaptchaSolver = gui.mainFrame.sysTrayIcon.toolsMenu.AppendSubMenu(menu_CaptchaSolver, _("Captcha Solver"))
+		self.captchaSolver_menu = gui.mainFrame.sysTrayIcon.toolsMenu.AppendSubMenu(captchaSolver_menu, _("Captcha Solver"))
 
 	def terminate(self):
 		try:
-			gui.mainFrame.sysTrayIcon.toolsMenu.RemoveItem(self.menu_CaptchaSolver)
+			gui.mainFrame.sysTrayIcon.toolsMenu.Remove(self.captchaSolver_menu)
 		except Exception:
 			pass
 
