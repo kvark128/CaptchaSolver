@@ -1,3 +1,5 @@
+# Copyright (C) 2016-2021 Alexander Linkov <kvark128@yandex.ru>
+
 import threading
 import os
 import json
@@ -42,6 +44,7 @@ ERRORS = {
 	"ERROR_CAPTCHA_UNSOLVABLE": _("Captcha could not solve 3 different employee. Money for this image come back to balance"),
 	"ERROR_BAD_DUPLICATES": _("The error appears when 100 percent recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received"),
 	"ERROR_CAPTCHAIMAGE_BLOCKED": _("This captcha can not be recognized"),
+	"TOO_MANY_BAD_IMAGES": _("You are sending too many unrecognizable images. Please try again later"),
 }
 
 conf = {
