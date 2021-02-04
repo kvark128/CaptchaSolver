@@ -13,7 +13,7 @@ from urllib.parse import urlencode
 import globalPluginHandler
 import wx
 import gui
-from logHandler import log
+import vision
 import scriptHandler
 import addonHandler
 import queueHandler
@@ -22,6 +22,7 @@ import globalVars
 import api
 import speech
 import controlTypes
+from logHandler import log
 
 addonHandler.initTranslation()
 
@@ -251,6 +252,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@secureScript
 	def script_startRecognition(self, gesture):
+		from visionEnhancementProviders.screenCurtain import ScreenCurtainProvider
+		screenCurtainId = ScreenCurtainProvider.getSettings().getId()
+		screenCurtainProviderInfo = vision.handler.getProviderInfo(screenCurtainId)
+		isScreenCurtainRunning = bool(vision.handler.getProviderInstance(screenCurtainProviderInfo))
+		if isScreenCurtainRunning:
+			ui.message(_("Please disable screen curtain before captcha recognizing"))
+			return
+
 		obj = api.getNavigatorObject()
 
 		if obj.role != controlTypes.ROLE_GRAPHIC and conf["graphicOnly"]:
