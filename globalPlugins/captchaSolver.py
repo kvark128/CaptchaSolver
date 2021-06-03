@@ -22,6 +22,7 @@ import globalVars
 import api
 import speech
 import controlTypes
+from scriptHandler import script
 from logHandler import log
 
 addonHandler.initTranslation()
@@ -56,15 +57,6 @@ conf = {
 	"language": 0,
 	"key": "",
 }
-
-# Decorator to lock the scripts on the secure desktop
-def secureScript(script):
-	def wrapper(self, gesture):
-		if globalVars.appArgs.secure:
-			ui.message(_("Action cannot be performed because NVDA running on secure desktop"))
-		else:
-			script(self, gesture)
-	return wrapper
 
 class SettingsDialog(gui.SettingsDialog):
 	title = _("Captcha Solver Settings")
@@ -188,7 +180,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		if globalVars.appArgs.secure: return
+		if globalVars.appArgs.secure:
+			return
 
 		# Updates global conf from config file
 		try:
@@ -250,8 +243,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			kwargs["textinstructions"] = textInstruction.encode("utf-8")
 		RucaptchaRequest(self.captchaHandler, **kwargs)
 
-	@secureScript
+	@script(description=_("Starts the recognition process"))
 	def script_startRecognition(self, gesture):
+		if globalVars.appArgs.secure:
+			return
+
 		from visionEnhancementProviders.screenCurtain import ScreenCurtainProvider
 		screenCurtainId = ScreenCurtainProvider.getSettings().getId()
 		screenCurtainProviderInfo = vision.handler.getProviderInfo(screenCurtainId)
@@ -288,14 +284,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		image.SaveFile(body, wx.BITMAP_TYPE_PNG)
 
 		wx.CallAfter(self._creator, body=body.getvalue())
-	script_startRecognition.__doc__ = _("Starts the recognition process")
 
-	@secureScript
+	@script(description=_("Report account balance"))
 	def script_getBalance(self, gesture):
+		if globalVars.appArgs.secure:
+			return
 		RucaptchaRequest(self.balanceHandler, action="getbalance")
-	script_getBalance.__doc__ = _("Report account balance")
 
-	@secureScript
+	@script(description=_("Show the settings dialog"))
 	def script_showSettingsDialog(self, gesture):
+		if globalVars.appArgs.secure:
+			return
 		gui.mainFrame._popupSettingsDialog(SettingsDialog)
-	script_showSettingsDialog.__doc__ = _("Show the settings dialog")
