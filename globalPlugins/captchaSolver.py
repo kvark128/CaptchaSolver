@@ -148,7 +148,7 @@ class RucaptchaRequest(threading.Thread):
 		except RucaptchaError as ex:
 			err = ex.description
 			if err is None:
-				err = _(f"Rucaptcha error: {ex.error}")
+				err = _("Rucaptcha error: {error}").format(error=ex.error)
 			log.exception()
 		except Exception:
 			err = _("Unexpected CaptchaSolver error. For details, see the NVDA log")
@@ -242,7 +242,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			gui.messageBox(err, _("Error getting balance"), style=wx.OK | wx.ICON_ERROR)
 			return
 
-		gui.messageBox(_(f"{float(resp):.2f}"), _("Your account balance"))
+		gui.messageBox(_("{:.2f}").format(float(resp)), _("Your account balance"))
 
 	def captchaHandler(self, resp, err):
 		if err is not None:
@@ -257,11 +257,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(err)
 			return
 
-		ui.message(_(f"Balance: {float(resp):.2f}"))
+		ui.message(_("Balance: {:.2f}").format(float(resp)))
 
 	def _creator(self, **kwargs):
 		if conf["textInstruction"]:
-			dlg = wx.TextEntryDialog(gui.mainFrame, _(f"Instruction text (maximum {MAX_INSTRUCTION_LENGTH} characters):"), _("Sending text instruction"))
+			dlg = wx.TextEntryDialog(gui.mainFrame, _("Instruction text (maximum {length} characters):").format(length=MAX_INSTRUCTION_LENGTH), _("Sending text instruction"))
 			dlg.SetMaxLength(MAX_INSTRUCTION_LENGTH)
 			gui.mainFrame.prePopup()
 			status = dlg.ShowModal()
@@ -302,7 +302,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 
 		if conf["sizeReport"] and scriptHandler.getLastScriptRepeatCount() != 1:
-			ui.message(_(f"Size: {width} X {height} pixels"))
+			ui.message(_("Size: {width} X {height} pixels").format(width=width, height=height))
 			return
 
 		bmp = wx.Bitmap(width, height)

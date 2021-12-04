@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CaptchaSolver\n"
-"POT-Creation-Date: 2021-12-05 05:54+0800\n"
-"PO-Revision-Date: 2021-12-05 06:00+0800\n"
+"POT-Creation-Date: 2021-12-05 06:19+0800\n"
+"PO-Revision-Date: 2021-12-05 06:22+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -142,8 +142,8 @@ msgstr ""
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver.py:151
 #, python-brace-format
-msgid "Rucaptcha error: {ex.error}"
-msgstr "Ошибка Rucaptcha: {ex.error}"
+msgid "Rucaptcha error: {error}"
+msgstr "Ошибка Rucaptcha: {error}"
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver.py:154
 msgid "Unexpected CaptchaSolver error. For details, see the NVDA log"
@@ -183,8 +183,8 @@ msgid "Error getting balance"
 msgstr "Ошибка при получении баланса"
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver.py:245
-msgid "{float(resp):.2f}"
-msgstr "{float(resp):.2f}"
+msgid "{:.2f}"
+msgstr "{:.2f}"
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver.py:245
 msgid "Your account balance"
@@ -195,13 +195,13 @@ msgid "Captcha solved successfully! The result copied to the clipboard"
 msgstr "Капча успешно распознана! Результат помещён в буфер обмена"
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver.py:260
-msgid "Balance: {float(resp):.2f}"
-msgstr "Баланс: {float(resp):.2f}"
+msgid "Balance: {:.2f}"
+msgstr "Баланс: {:.2f}"
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver.py:264
 #, python-brace-format
-msgid "Instruction text (maximum {MAX_INSTRUCTION_LENGTH} characters):"
-msgstr "Текст инструкции (максимум {MAX_INSTRUCTION_LENGTH} символов):"
+msgid "Instruction text (maximum {length} characters):"
+msgstr "Текст инструкции (максимум {length} символов):"
 
 #: ..\..\..\..\captchaSolver/globalPlugins/captchaSolver.py:264
 msgid "Sending text instruction"
@@ -240,5 +240,5 @@ msgstr "Сообщить баланс аккаунта"
 msgid "Show the settings dialog"
 msgstr "Показать диалог настроек"
 
-#~ msgid "{:.2f} rubles"
-#~ msgstr "{:.2f} рублей"
+#~ msgid "{float(resp):.2f}"
+#~ msgstr "{float(resp):.2f}"
