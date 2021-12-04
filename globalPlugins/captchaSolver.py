@@ -32,21 +32,36 @@ MAX_INSTRUCTION_LENGTH = 140 # Maximum text length of instruction for the worker
 FILE_CONFIG_PATH = os.path.join(globalVars.appArgs.configPath, "captchaSolverSettings.pickle")
 RUCAPTCHA_PROFILE_URL = "https://rucaptcha.com/auth/login"
 ADDON_URL = addonHandler.getCodeAddon().manifest.get("url")
-CAPCHA_NOT_READY_STATUS = "CAPCHA_NOT_READY"
 
-ERRORS = {
-	"ERROR_WRONG_USER_KEY": _("API key is not specified"),
-	"ERROR_KEY_DOES_NOT_EXIST": _("Used a non-existent API key"),
-	"ERROR_ZERO_BALANCE": _("The balance of your account is zero"),
-	"ERROR_NO_SLOT_AVAILABLE": _("The current recognition rate is higher than the maximum set in the settings of Your account. Either on the server queue builds up and employees do not have time to disassemble it, repeat the sending captcha after 5 seconds"),
-	"ERROR_ZERO_CAPTCHA_FILESIZE": _("Size of the captcha is less than 100 bytes"),
-	"ERROR_TOO_BIG_CAPTCHA_FILESIZE": _("Size of the captcha more than 100 KB"),
-	"ERROR_IP_NOT_ALLOWED": _("In Your account you have configured restrictions based on IP from which you can make requests. And the IP from which the request is not included in the allowed list"),
-	"IP_BANNED": _("IP address from which the request is blocked because of frequent requests with various incorrect API keys. The lock is released in an hour"),
-	"ERROR_CAPTCHA_UNSOLVABLE": _("Captcha could not solve 3 different employee. Money for this image come back to balance"),
-	"ERROR_BAD_DUPLICATES": _("The error appears when 100 percent recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received"),
-	"ERROR_CAPTCHAIMAGE_BLOCKED": _("This captcha can not be recognized"),
-	"TOO_MANY_BAD_IMAGES": _("You are sending too many unrecognizable images. Please try again later"),
+# Some errors that can be received from rucaptcha.com
+CAPCHA_NOT_READY = "CAPCHA_NOT_READY"
+ERROR_WRONG_USER_KEY = "ERROR_WRONG_USER_KEY"
+ERROR_KEY_DOES_NOT_EXIST = "ERROR_KEY_DOES_NOT_EXIST"
+ERROR_ZERO_BALANCE = "ERROR_ZERO_BALANCE"
+ERROR_NO_SLOT_AVAILABLE = "ERROR_NO_SLOT_AVAILABLE"
+ERROR_ZERO_CAPTCHA_FILESIZE = "ERROR_ZERO_CAPTCHA_FILESIZE"
+ERROR_TOO_BIG_CAPTCHA_FILESIZE = "ERROR_TOO_BIG_CAPTCHA_FILESIZE"
+ERROR_IP_NOT_ALLOWED = "ERROR_IP_NOT_ALLOWED"
+IP_BANNED = "IP_BANNED"
+ERROR_CAPTCHA_UNSOLVABLE = "ERROR_CAPTCHA_UNSOLVABLE"
+ERROR_BAD_DUPLICATES = "ERROR_BAD_DUPLICATES"
+ERROR_CAPTCHAIMAGE_BLOCKED = "ERROR_CAPTCHAIMAGE_BLOCKED"
+TOO_MANY_BAD_IMAGES = "TOO_MANY_BAD_IMAGES"
+
+# Human readable descriptions of some errors for the user
+errorLabels = {
+	ERROR_WRONG_USER_KEY: _("API key is not specified"),
+	ERROR_KEY_DOES_NOT_EXIST: _("Used a non-existent API key"),
+	ERROR_ZERO_BALANCE: _("The balance of your account is zero"),
+	ERROR_NO_SLOT_AVAILABLE: _("The current recognition rate is higher than the maximum set in the settings of Your account. Either on the server queue builds up and employees do not have time to disassemble it, repeat the sending captcha after 5 seconds"),
+	ERROR_ZERO_CAPTCHA_FILESIZE: _("Size of the captcha is less than 100 bytes"),
+	ERROR_TOO_BIG_CAPTCHA_FILESIZE: _("Size of the captcha more than 100 KB"),
+	ERROR_IP_NOT_ALLOWED: _("In Your account you have configured restrictions based on IP from which you can make requests. And the IP from which the request is not included in the allowed list"),
+	IP_BANNED: _("IP address from which the request is blocked because of frequent requests with various incorrect API keys. The lock is released in an hour"),
+	ERROR_CAPTCHA_UNSOLVABLE: _("Captcha could not solve 3 different employee. Money for this image come back to balance"),
+	ERROR_BAD_DUPLICATES: _("The error appears when 100 percent recognition. Has been used the maximum number of attempts, but the required number of identical answers has not been received"),
+	ERROR_CAPTCHAIMAGE_BLOCKED: _("This captcha can not be recognized"),
+	TOO_MANY_BAD_IMAGES: _("You are sending too many unrecognizable images. Please try again later"),
 }
 
 conf = {
@@ -105,7 +120,12 @@ class SettingsDialog(gui.SettingsDialog):
 
 		super(SettingsDialog, self).onOk(event)
 
-class RucaptchaError(Exception): pass
+class RucaptchaError(RuntimeError):
+
+	def __init__(self, error):
+		super(RucaptchaError, self).__init__(error)
+		self.error = error
+		self.description = errorLabels.get(error)
 
 class RucaptchaRequest(threading.Thread):
 
@@ -122,15 +142,20 @@ class RucaptchaRequest(threading.Thread):
 		resp = err = None
 		try:
 			resp = self._request(**self._kwargs)
-		except (IOError, OSError):
+		except OSError:
 			err = _("Error connecting to server. Please check your Internet connection")
 			log.exception()
-		except Exception as e:
-			err = ERRORS.get(str(e), _("Unexpected CaptchaSolver error. For details, see the NVDA log"))
+		except RucaptchaError as ex:
+			err = ex.description
+			if err is None:
+				err = _(f"Rucaptcha error: {ex.error}")
+			log.exception()
+		except Exception:
+			err = _("Unexpected CaptchaSolver error. For details, see the NVDA log")
 			log.exception()
 		finally:
 			self._connection.close()
-			wx.CallAfter(self._callback, resp, err)
+		wx.CallAfter(self._callback, resp, err)
 
 	def _request(self, **kwargs):
 		kwargs["json"] = 1
@@ -138,7 +163,7 @@ class RucaptchaRequest(threading.Thread):
 
 		if "body" not in kwargs:
 			path = "/res.php?" + urlencode(kwargs)
-			return self._HTTPRequest("GET", path, None)
+			return self._HTTPRequest(path)
 
 		kwargs["soft_id"] = 1665 # ID of CaptchaSolver from rucaptcha.com. Used for statistics
 		kwargs["regsense"] = int(conf["regsense"])
@@ -146,7 +171,7 @@ class RucaptchaRequest(threading.Thread):
 		kwargs["method"] = "base64"
 		kwargs["body"] = base64.b64encode(kwargs["body"])
 
-		captchaID = self._HTTPRequest("POST", "/in.php", urlencode(kwargs))
+		captchaID = self._HTTPRequest("/in.php", body=urlencode(kwargs))
 
 		queueHandler.queueFunction(queueHandler.eventQueue, speech.cancelSpeech)
 		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, _("Captcha successfully sent to the recognition. You will be notified when the result will be ready"))
@@ -155,23 +180,27 @@ class RucaptchaRequest(threading.Thread):
 			time.sleep(2)
 			try:
 				return self._request(action="get", id=captchaID)
-			except RucaptchaError as e:
-				if str(e) != CAPCHA_NOT_READY_STATUS: raise e
+			except RucaptchaError as ex:
+				if ex.error != CAPCHA_NOT_READY:
+					raise ex
 
-	def _HTTPRequest(self, method, path, body):
+	def _HTTPRequest(self, path, body=None):
+		method = "GET"
 		headers = {"Host": self._host}
 		if body:
+			method = "POST"
 			headers["Content-Type"] = "application/x-www-form-urlencoded"
 
 		self._connection.request(method, path, body, headers)
-		response = self._connection.getresponse()
-		if response.status != http.client.OK:
-			raise RuntimeError("{} {}".format(response.status, response.reason))
+		resp = self._connection.getresponse()
+		if resp.status != http.client.OK:
+			raise RuntimeError(f"{resp.status} {resp.reason}")
 
-		responseDict = json.load(response)
-		request = responseDict.get("request")
+		respDict = json.load(resp)
+		request = respDict.get("request")
+		status = respDict.get("status")
 
-		if responseDict.get("status") != 1:
+		if status != 1:
 			raise RucaptchaError(request)
 		return request
 
@@ -213,7 +242,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			gui.messageBox(err, _("Error getting balance"), style=wx.OK | wx.ICON_ERROR)
 			return
 
-		gui.messageBox(_("{:.2f} rubles").format(float(resp)), _("Your account balance"))
+		gui.messageBox(_(f"{float(resp):.2f}"), _("Your account balance"))
 
 	def captchaHandler(self, resp, err):
 		if err is not None:
@@ -228,11 +257,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(err)
 			return
 
-		ui.message(_("Balance: {:.2f}").format(float(resp)))
+		ui.message(_(f"Balance: {float(resp):.2f}"))
 
 	def _creator(self, **kwargs):
 		if conf["textInstruction"]:
-			dlg = wx.TextEntryDialog(gui.mainFrame, _("Instruction text (maximum {length} characters):").format(length=MAX_INSTRUCTION_LENGTH), _("Sending text instruction"))
+			dlg = wx.TextEntryDialog(gui.mainFrame, _(f"Instruction text (maximum {MAX_INSTRUCTION_LENGTH} characters):"), _("Sending text instruction"))
 			dlg.SetMaxLength(MAX_INSTRUCTION_LENGTH)
 			gui.mainFrame.prePopup()
 			status = dlg.ShowModal()
@@ -273,7 +302,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 
 		if conf["sizeReport"] and scriptHandler.getLastScriptRepeatCount() != 1:
-			ui.message(_("Size: {0} X {1} pixels").format(width, height))
+			ui.message(_(f"Size: {width} X {height} pixels"))
 			return
 
 		bmp = wx.Bitmap(width, height)
