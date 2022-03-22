@@ -21,7 +21,7 @@ import ui
 import globalVars
 import api
 import speech
-import controlTypes
+from controlTypes import Role, State
 from scriptHandler import script
 from logHandler import log
 
@@ -287,11 +287,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		obj = api.getNavigatorObject()
 
-		if obj.role != controlTypes.ROLE_GRAPHIC and conf["graphicOnly"]:
+		if obj.role != Role.GRAPHIC and conf["graphicOnly"]:
 			ui.message(_("This object is not a graphical element"))
 			return
 
-		if controlTypes.STATE_OFFSCREEN in obj.states:
+		if State.OFFSCREEN in obj.states:
 			ui.message(_("Captcha off screen"))
 			return
 
