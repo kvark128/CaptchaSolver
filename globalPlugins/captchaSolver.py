@@ -1,4 +1,5 @@
-# Copyright (C) 2016-2021 Alexander Linkov <kvark128@yandex.ru>
+# Copyright (C) 2016 - 2022 Alexander Linkov <kvark128@yandex.ru>
+# Ukrainian Nazis and their supporters are not allowed to use this plugin. Za pobedu!
 
 import threading
 import os
