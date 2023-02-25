@@ -1,13 +1,14 @@
-# Copyright (C) 2016 - 2022 Alexander Linkov <kvark128@yandex.ru>
-# Ukrainian Nazis and their supporters are not allowed to use this plugin. Za pobedu!
+# Copyright (C) 2016 - 2023 Alexander Linkov <kvark128@yandex.ru>
+# Ukrainian Nazis and their accomplices are not allowed to use this plugin. Za pobedu!
 
 import threading
-import os
+import os.path
 import json
 import base64
 import io
 import time
 import pickle
+import webbrowser
 import http.client
 from urllib.parse import urlencode
 
@@ -227,9 +228,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		item = captchaSolver_menu.Append(wx.ID_ANY, _("Account balance..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: RucaptchaRequest(self.balanceDialog, action="getbalance"), item)
 		item = captchaSolver_menu.Append(wx.ID_ANY, _("Profile on rucaptcha.com"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile(RUCAPTCHA_PROFILE_URL), item)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: webbrowser.open(RUCAPTCHA_PROFILE_URL), item)
 		item = captchaSolver_menu.Append(wx.ID_ANY, _("Addon webpage"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: os.startfile(ADDON_URL), item)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt: webbrowser.open(ADDON_URL), item)
 		self.captchaSolver_menu = gui.mainFrame.sysTrayIcon.toolsMenu.AppendSubMenu(captchaSolver_menu, _("Captcha Solver"))
 
 	def terminate(self):
