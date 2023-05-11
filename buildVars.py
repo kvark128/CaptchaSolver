@@ -29,7 +29,7 @@ addon_info = {
 	# Author(s)
 	"addon_author": "Kvark <kvark128@yandex.ru>",
 	# URL for the add-on documentation support
-	"addon_url": None,
+	"addon_url": "https://github.com/kvark128/CaptchaSolver",
 	# URL for the add-on repository where the source code can be found
 	"addon_sourceURL": None,
 	# Documentation file name
