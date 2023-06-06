@@ -1,0 +1,235 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CaptchaSolver\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2023-06-06 21:21+0800\n"
+"PO-Revision-Date: 2023-06-06 21:35+0800\n"
+"Last-Translator: Kvark <kvark128@yandex.ru>\n"
+"Language-Team: Cary-rowen <manchen_0528@outlook.com>\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SearchPath-0: ../../../../captchaSolver\n"
+
+#: addon\globalPlugins\captchaSolver.py:57
+msgid "API key is not specified"
+msgstr "未提供 API key"
+
+#: addon\globalPlugins\captchaSolver.py:58
+msgid "Used a non-existent API key"
+msgstr "提供的 API key 不存在"
+
+#: addon\globalPlugins\captchaSolver.py:59
+msgid "The balance of your account is zero"
+msgstr "账户余额为零"
+
+#: addon\globalPlugins\captchaSolver.py:60
+msgid ""
+"The current recognition rate is higher than the maximum set in the settings "
+"of Your account. Either on the server queue builds up and employees do not "
+"have time to disassemble it, repeat the sending captcha after 5 seconds"
+msgstr "提交频率超过预设值或服务器繁忙，请在 5 秒后尝试。"
+
+#: addon\globalPlugins\captchaSolver.py:61
+msgid "Size of the captcha is less than 100 bytes"
+msgstr "验证码图片小于 100 字节"
+
+#: addon\globalPlugins\captchaSolver.py:62
+msgid "Size of the captcha more than 100 KB"
+msgstr "验证码图片大于 100 KB"
+
+#: addon\globalPlugins\captchaSolver.py:63
+msgid ""
+"In Your account you have configured restrictions based on IP from which you "
+"can make requests. And the IP from which the request is not included in the "
+"allowed list"
+msgstr ""
+"由于您在账户中对可以提交请求的 IP 地址做了限制，当前的 IP 地址不包含在允许列"
+"表中。"
+
+#: addon\globalPlugins\captchaSolver.py:64
+msgid ""
+"IP address from which the request is blocked because of frequent requests "
+"with various incorrect API keys. The lock is released in an hour"
+msgstr ""
+"由于您多次使用了不正确的 API Key ，您的 IP 地址已被临时限制提交，该限制将在一"
+"小时后自动解除。"
+
+#: addon\globalPlugins\captchaSolver.py:65
+msgid ""
+"Captcha could not solve 3 different employee. Money for this image come back "
+"to balance"
+msgstr "该验证码无法被识别，该笔消费会自动退回到您的账户中。"
+
+#: addon\globalPlugins\captchaSolver.py:66
+msgid ""
+"The error appears when 100 percent recognition. Has been used the maximum "
+"number of attempts, but the required number of identical answers has not "
+"been received"
+msgstr ""
+"识别失败。尽管系统已全力识别并做出了最大次数的尝试，但仍未收到足够数量的一致"
+"答案。"
+
+#: addon\globalPlugins\captchaSolver.py:67
+msgid "This captcha can not be recognized"
+msgstr "无法识别该验证码"
+
+#: addon\globalPlugins\captchaSolver.py:68
+msgid "You are sending too many unrecognizable images. Please try again later"
+msgstr "您多次提交了无法识别的验证码图片，请稍后再试"
+
+#: addon\globalPlugins\captchaSolver.py:81
+msgid "Captcha Solver Settings"
+msgstr "验证码识别器设置"
+
+#: addon\globalPlugins\captchaSolver.py:86
+msgid "Recognize only &graphic objects"
+msgstr "仅识别图片对象(&G)"
+
+#: addon\globalPlugins\captchaSolver.py:90
+msgid "&Case sensitive recognition"
+msgstr "区分大小写(&C)"
+
+#: addon\globalPlugins\captchaSolver.py:94
+msgid "Report image &size"
+msgstr "读出图片尺寸(&S)"
+
+#: addon\globalPlugins\captchaSolver.py:98
+msgid "Send &text instruction"
+msgstr "发送文字说明(&T)"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Image &language:"
+msgstr "图片语言(&L)"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Undefined"
+msgstr "未指定"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Only Cyrillic alphabet"
+msgstr "仅西里尔字符"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Only Latin alphabet"
+msgstr "仅拉丁字符"
+
+#: addon\globalPlugins\captchaSolver.py:105
+msgid "API &key:"
+msgstr "API key:"
+
+#: addon\globalPlugins\captchaSolver.py:123
+msgid "Error saving settings"
+msgstr "设置保存出错"
+
+#: addon\globalPlugins\captchaSolver.py:150
+msgid "Error connecting to server. Please check your Internet connection"
+msgstr "连接服务器出错，请检查您的互联网连接。"
+
+#: addon\globalPlugins\captchaSolver.py:155
+msgid "Rucaptcha error: {error}"
+msgstr "Rucaptcha 错误：{error}"
+
+#: addon\globalPlugins\captchaSolver.py:158
+msgid "Unexpected CaptchaSolver error. For details, see the NVDA log"
+msgstr "验证码识别器出现了一个意外错误，详细信息请查看 NVDA 日志。"
+
+#: addon\globalPlugins\captchaSolver.py:181
+msgid ""
+"Captcha successfully sent to the recognition. You will be notified when the "
+"result will be ready"
+msgstr "已发送验证码图片，稍后您将收到结果通知。"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+#: addon\globalPlugins\captchaSolver.py:212
+#: addon\globalPlugins\captchaSolver.py:236 buildVars.py:23
+msgid "Captcha Solver"
+msgstr "验证码识别器(&O)"
+
+#: addon\globalPlugins\captchaSolver.py:228
+msgid "Settings..."
+msgstr "设置(&S)..."
+
+#: addon\globalPlugins\captchaSolver.py:230
+msgid "Account balance..."
+msgstr "账户余额(&A)..."
+
+#: addon\globalPlugins\captchaSolver.py:232
+msgid "Profile on rucaptcha.com"
+msgstr "rucaptcha.com 上的个人资料(&P)"
+
+#: addon\globalPlugins\captchaSolver.py:234
+msgid "Addon webpage"
+msgstr "插件网站(&W)"
+
+#: addon\globalPlugins\captchaSolver.py:246
+msgid "Error getting balance"
+msgstr "获取余额出错"
+
+#: addon\globalPlugins\captchaSolver.py:249
+msgid "{:.2f}"
+msgstr "{:.2f}"
+
+#: addon\globalPlugins\captchaSolver.py:249
+msgid "Your account balance"
+msgstr "您的账户余额"
+
+#: addon\globalPlugins\captchaSolver.py:257
+msgid "Captcha solved successfully! The result copied to the clipboard"
+msgstr "验证码识别成功，已复制到剪贴板。"
+
+#: addon\globalPlugins\captchaSolver.py:264
+msgid "Balance: {:.2f}"
+msgstr "余额： {:.2f}"
+
+#: addon\globalPlugins\captchaSolver.py:268
+msgid "Instruction text (maximum {length} characters):"
+msgstr "说明文字（不超过 {length} 个字符）："
+
+#: addon\globalPlugins\captchaSolver.py:268
+msgid "Sending text instruction"
+msgstr "发送文字说明"
+
+#: addon\globalPlugins\captchaSolver.py:279
+msgid "Starts the recognition process"
+msgstr "开始识别"
+
+#: addon\globalPlugins\captchaSolver.py:289
+msgid "Please disable screen curtain before captcha recognizing"
+msgstr "请在识别验证码之前关闭黑屏"
+
+#: addon\globalPlugins\captchaSolver.py:295
+msgid "This object is not a graphical element"
+msgstr "此处不是图片对象"
+
+#: addon\globalPlugins\captchaSolver.py:299
+msgid "Captcha off screen"
+msgstr "验证码在屏幕外"
+
+#: addon\globalPlugins\captchaSolver.py:305
+msgid "Captcha has no location"
+msgstr "未找到验证码"
+
+#: addon\globalPlugins\captchaSolver.py:309
+msgid "Size: {width} X {height} pixels"
+msgstr "尺寸： {width} X {height} 像素"
+
+#: addon\globalPlugins\captchaSolver.py:321
+msgid "Report account balance"
+msgstr "读出账户余额"
+
+#: addon\globalPlugins\captchaSolver.py:327
+msgid "Show the settings dialog"
+msgstr "显示设置对话框"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:26
+msgid "Recognition captcha using the service rucaptcha.com"
+msgstr "使用 rucaptcha.com 识别验证码"
