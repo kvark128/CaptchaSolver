@@ -28,6 +28,7 @@ import speech
 from controlTypes import Role, State
 from scriptHandler import script
 from logHandler import log
+from gui import settingsDialogs, guiHelper, message
 
 addonHandler.initTranslation()
 
@@ -77,11 +78,11 @@ conf = {
 	"key": "",
 }
 
-class SettingsDialog(gui.SettingsDialog):
+class SettingsDialog(settingsDialogs.SettingsDialog):
 	title = _("Captcha Solver Settings")
 
 	def makeSettings(self, sizer):
-		settingsSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=sizer)
+		settingsSizerHelper = guiHelper.BoxSizerHelper(self, sizer=sizer)
 
 		self.graphicOnly = wx.CheckBox(self, label=_("Recognize only &graphic objects"))
 		self.graphicOnly.SetValue(conf["graphicOnly"])
@@ -120,7 +121,7 @@ class SettingsDialog(gui.SettingsDialog):
 			with open(FILE_CONFIG_PATH, "wb") as fileConfig:
 				pickle.dump(conf, fileConfig, pickle.HIGHEST_PROTOCOL)
 		except (IOError, OSError) as e:
-			gui.messageBox(e.strerror, _("Error saving settings"), style=wx.OK | wx.ICON_ERROR)
+			message.messageBox(e.strerror, _("Error saving settings"), style=wx.OK | wx.ICON_ERROR)
 
 		super(SettingsDialog, self).onOk(event)
 
@@ -243,10 +244,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def balanceDialog(self, resp, err):
 		if err is not None:
-			gui.messageBox(err, _("Error getting balance"), style=wx.OK | wx.ICON_ERROR)
+			message.messageBox(err, _("Error getting balance"), style=wx.OK | wx.ICON_ERROR)
 			return
 
-		gui.messageBox(_("{:.2f}").format(float(resp)), _("Your account balance"))
+		message.messageBox(_("{:.2f}").format(float(resp)), _("Your account balance"))
 
 	def captchaHandler(self, resp, err):
 		if err is not None:
