@@ -1,0 +1,255 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CaptchaSolver\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2023-05-13 01:57+0800\n"
+"PO-Revision-Date: 2024-01-18 22:57+0100\n"
+"Last-Translator: Kvark <kvark128@yandex.ru>\n"
+"Language-Team: Nikolett Till\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../../../../captchaSolver\n"
+
+#: addon\globalPlugins\captchaSolver.py:57
+msgid "API key is not specified"
+msgstr "Nincs megadva API kulcs"
+
+#: addon\globalPlugins\captchaSolver.py:58
+msgid "Used a non-existent API key"
+msgstr "Nem létező API-kulcs van használatban"
+
+#: addon\globalPlugins\captchaSolver.py:59
+msgid "The balance of your account is zero"
+msgstr "A felhasználóhoz tartozó egyenleg nulla"
+
+#: addon\globalPlugins\captchaSolver.py:60
+msgid ""
+"The current recognition rate is higher than the maximum set in the settings "
+"of Your account. Either on the server queue builds up and employees do not "
+"have time to disassemble it, repeat the sending captcha after 5 seconds"
+msgstr ""
+"Az aktuális felismerési arány magasabb, mint a fiók beállításaiban megadott "
+"maximális érték. Jelenleg túl sok kérelem érkezik be hozzánk, munkatársaink "
+"pedig nem tudják időben feldolgozni azokat. Próbáld újra legalább öt perc "
+"elteltével"
+
+#: addon\globalPlugins\captchaSolver.py:61
+msgid "Size of the captcha is less than 100 bytes"
+msgstr "A captcha mérete kevesebb, mint 100 bájt"
+
+#: addon\globalPlugins\captchaSolver.py:62
+msgid "Size of the captcha more than 100 KB"
+msgstr "A captcha mérete több, mint 100 kb"
+
+#: addon\globalPlugins\captchaSolver.py:63
+msgid ""
+"In Your account you have configured restrictions based on IP from which you "
+"can make requests. And the IP from which the request is not included in the "
+"allowed list"
+msgstr ""
+"Fiókod úgy van beállítva, hogy korlátozza azokat az IP-címeket, amelyekről "
+"kéréseket lehet küldeni. Az IP, ahonnan ez a kérés érkezett, nem szerepel a "
+"megengedett IP-k listáján."
+
+#: addon\globalPlugins\captchaSolver.py:64
+msgid ""
+"IP address from which the request is blocked because of frequent requests "
+"with various incorrect API keys. The lock is released in an hour"
+msgstr ""
+"Az IP-cím, ahonnan a kérés érkezett, blokkolva van a különböző érvénytelen "
+"API-kulcsokkal történő gyakori kérések miatt. A blokkolás egy óra múlva "
+"feloldásra kerül"
+
+#: addon\globalPlugins\captchaSolver.py:65
+msgid ""
+"Captcha could not solve 3 different employee. Money for this image come back "
+"to balance"
+msgstr ""
+"A captchát 3 különböző alkalmazott sem tudta megoldani. A képért kapott pénz "
+"visszakerül a felhasználóhoz"
+
+#: addon\globalPlugins\captchaSolver.py:66
+msgid ""
+"The error appears when 100 percent recognition. Has been used the maximum "
+"number of attempts, but the required number of identical answers has not "
+"been received"
+msgstr ""
+"A hiba akkor jelenik meg, ha a 100%-os felismerés engedélyezve van. A "
+"maximális számú próbálkozás fel lett használva, de nem került elérésre a "
+"szükséges számú azonos válasz"
+
+#: addon\globalPlugins\captchaSolver.py:67
+msgid "This captcha can not be recognized"
+msgstr "Ez a captcha felismerhetetlen"
+
+#: addon\globalPlugins\captchaSolver.py:68
+msgid "You are sending too many unrecognizable images. Please try again later"
+msgstr "Túl sok felismerhetetlen képet küldesz. Kérjük, próbáld újra később"
+
+#: addon\globalPlugins\captchaSolver.py:81
+msgid "Captcha Solver Settings"
+msgstr "A Captcha Solver Beállításai"
+
+#: addon\globalPlugins\captchaSolver.py:86
+msgid "Recognize only &graphic objects"
+msgstr "Csak &grafikus tartalom felismerése"
+
+#: addon\globalPlugins\captchaSolver.py:90
+msgid "&Case sensitive recognition"
+msgstr "&Nagy- és kisbetűk megkülönböztetése a felismerés folyamán"
+
+#: addon\globalPlugins\captchaSolver.py:94
+msgid "Report image &size"
+msgstr "Kép &méretének bejelentése"
+
+#: addon\globalPlugins\captchaSolver.py:98
+msgid "Send &text instruction"
+msgstr "&Szöveges utasítás küldése"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Image &language:"
+msgstr "A kép &nyelve:"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Undefined"
+msgstr "Nem meghatározott"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Only Cyrillic alphabet"
+msgstr "Csak a cirill ábécé betűi"
+
+#: addon\globalPlugins\captchaSolver.py:102
+msgid "Only Latin alphabet"
+msgstr "Csak a latin ábécé betűi"
+
+#: addon\globalPlugins\captchaSolver.py:105
+msgid "API &key:"
+msgstr "API &kulcs:"
+
+#: addon\globalPlugins\captchaSolver.py:123
+msgid "Error saving settings"
+msgstr "Hiba a beállítások elmentése folyamán"
+
+#: addon\globalPlugins\captchaSolver.py:150
+msgid "Error connecting to server. Please check your Internet connection"
+msgstr ""
+"Hiba a szerverhez való csatlakozás közben. Kérjük, ellenőrizd az "
+"internetkapcsolatot"
+
+#: addon\globalPlugins\captchaSolver.py:155
+#, python-brace-format
+msgid "Rucaptcha error: {error}"
+msgstr "Rucaptcha hiba: {error}"
+
+#: addon\globalPlugins\captchaSolver.py:158
+msgid "Unexpected CaptchaSolver error. For details, see the NVDA log"
+msgstr ""
+"Váratlan CaptchaSolver hiba. A részletekért tekintsd meg az NVDA "
+"hibajelentési naplóját"
+
+#: addon\globalPlugins\captchaSolver.py:181
+msgid ""
+"Captcha successfully sent to the recognition. You will be notified when the "
+"result will be ready"
+msgstr ""
+"A captcha sikeresen elküldve felismerésre. Értesítünk, ha eredmény érkezik"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+#: addon\globalPlugins\captchaSolver.py:212
+#: addon\globalPlugins\captchaSolver.py:236 buildVars.py:23
+msgid "Captcha Solver"
+msgstr "Captcha Felismerő"
+
+#: addon\globalPlugins\captchaSolver.py:228
+msgid "Settings..."
+msgstr "Beállítások..."
+
+#: addon\globalPlugins\captchaSolver.py:230
+msgid "Account balance..."
+msgstr "Felhasználó egyenlege..."
+
+#: addon\globalPlugins\captchaSolver.py:232
+msgid "Profile on rucaptcha.com"
+msgstr "Profil a rucaptcha.com weboldalon"
+
+#: addon\globalPlugins\captchaSolver.py:234
+msgid "Addon webpage"
+msgstr "A kiegészítő weboldala"
+
+#: addon\globalPlugins\captchaSolver.py:246
+msgid "Error getting balance"
+msgstr "Hiba az egyenleg lekérése közben"
+
+#: addon\globalPlugins\captchaSolver.py:249
+msgid "{:.2f}"
+msgstr "{:.2f}"
+
+#: addon\globalPlugins\captchaSolver.py:249
+msgid "Your account balance"
+msgstr "A felhasználó egyenlege"
+
+#: addon\globalPlugins\captchaSolver.py:257
+msgid "Captcha solved successfully! The result copied to the clipboard"
+msgstr "Captcha sikeresen felismerve! Az eredmény a vágólapra másolva"
+
+#: addon\globalPlugins\captchaSolver.py:264
+msgid "Balance: {:.2f}"
+msgstr "Egyenleg: {:.2f}"
+
+#: addon\globalPlugins\captchaSolver.py:268
+#, python-brace-format
+msgid "Instruction text (maximum {length} characters):"
+msgstr "Az instrukció szövege (maximum {length} szimbólum):"
+
+#: addon\globalPlugins\captchaSolver.py:268
+msgid "Sending text instruction"
+msgstr "Szöveges instrukció küldése"
+
+#: addon\globalPlugins\captchaSolver.py:279
+msgid "Starts the recognition process"
+msgstr "A felismerés elkezdése"
+
+#: addon\globalPlugins\captchaSolver.py:289
+msgid "Please disable screen curtain before captcha recognizing"
+msgstr "Kérlek, kapcsold ki a képernyőfüggönyt a captcha felismerése előtt"
+
+#: addon\globalPlugins\captchaSolver.py:295
+msgid "This object is not a graphical element"
+msgstr "Ez az objektum nem grafikus elem"
+
+#: addon\globalPlugins\captchaSolver.py:299
+msgid "Captcha off screen"
+msgstr "Képernyőn kívüli captcha"
+
+#: addon\globalPlugins\captchaSolver.py:305
+msgid "Captcha has no location"
+msgstr "A captcha nem rendelkezik helyzettel"
+
+#: addon\globalPlugins\captchaSolver.py:309
+#, python-brace-format
+msgid "Size: {width} X {height} pixels"
+msgstr "Méret: {width} x {height}"
+
+#: addon\globalPlugins\captchaSolver.py:321
+msgid "Report account balance"
+msgstr "Egyenleg lekérése"
+
+#: addon\globalPlugins\captchaSolver.py:327
+msgid "Show the settings dialog"
+msgstr "A beállítások párbeszédpanelének mutatása"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:26
+msgid "Recognition captcha using the service rucaptcha.com"
+msgstr "Captcha felismerés a rucaptcha.com szolgáltatással"
+
+#~ msgid "{float(resp):.2f}"
+#~ msgstr "{float(resp):.2f}"
